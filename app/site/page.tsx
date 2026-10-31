@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 
-// 3D satellite site view. Mapbox GL JS is loaded from Mapbox's CDN at runtime,
+// Satellite site view. Mapbox GL JS is loaded from Mapbox's CDN at runtime,
 // so no npm dependency (and no lockfile change) is needed.
 const MAPBOX_VERSION = 'v3.9.0';
 const BUILD_TOKEN = (() => { try { return process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? ''; } catch { return ''; } })();
@@ -54,15 +54,13 @@ export default function SitePage() {
       mapboxgl.accessToken = token;
       const map = new mapboxgl.Map({
         container: container.current,
-        style: 'mapbox://styles/mapbox/satellite-streets-v12', // satellite + vector data (needed for 3D buildings)
-        center: [site.lng, site.lat], zoom: 16.5, pitch: 60, bearing: -17,
+        style: 'mapbox://styles/mapbox/satellite-streets-v12', // satellite imagery + street labels
+        center: [site.lng, site.lat], zoom: 16.5, pitch: 0, bearing: 0,
       });
       mapRef.current = map;
       map.addControl(new mapboxgl.NavigationControl());
-      map.on('error', () => setStatus('The map reported an error. Check that your Mapbox token is valid.'));
+      map.on('error', (e: any) => setStatus('Map error: ' + (e?.error?.message || 'unknown')));
       map.on('load', () => {
-        map.addSource('mapbox-dem', { type: 'raster-dem', url: 'mapbox://mapbox.mapbox-terrain-dem-v1', tileSize: 512, maxzoom: 14 });
-        map.setTerrain({ source: 'mapbox-dem', exaggeration: 1.2 });
         const labelLayer = map.getStyle().layers.find((l: any) => l.type === 'symbol' && l.layout && l.layout['text-field']);
         map.addLayer({
           id: '3d-buildings', source: 'composite', 'source-layer': 'building', filter: ['==', 'extrude', 'true'],
@@ -79,7 +77,7 @@ export default function SitePage() {
 
   // Fly to a new site.
   useEffect(() => {
-    mapRef.current?.flyTo({ center: [site.lng, site.lat], zoom: 16.5, pitch: 60, duration: 2500 });
+    mapRef.current?.flyTo({ center: [site.lng, site.lat], zoom: 16.5, pitch: 0, duration: 2500 });
     markerRef.current?.setLngLat([site.lng, site.lat]);
   }, [site]);
 
