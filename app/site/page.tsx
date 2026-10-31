@@ -1,19 +1,23 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 
-// Worldwide site view with two looks:
+// Worldwide site view with three looks:
+//  - Twin: "digital twin" style (blue glowing buildings under a purple sky)
 //  - City: Mapbox Standard style (3D buildings, landmarks, lighting presets)
-//  - Satellite: real aerial imagery with street labels and 3D building blocks on top
+//  - Satellite: real aerial imagery with street labels and 3D building blocks
 // Mapbox GL JS is loaded from Mapbox's CDN at runtime, so no npm dependency is needed.
 const MAPBOX_VERSION = 'v3.9.0';
 const BUILD_TOKEN = (() => { try { return process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? ''; } catch { return ''; } })();
 const DEFAULT_SITE = { lat: -1.2673, lng: 36.8060 }; // Westlands, Nairobi. Search any place, or use ?lat=..&lng=..
 const PRESETS = ['dawn', 'day', 'dusk', 'night'] as const;
 type Preset = (typeof PRESETS)[number];
-type View = 'city' | 'satellite';
+type View = 'twin' | 'city' | 'satellite';
 
-const CITY_STYLE = 'mapbox://styles/mapbox/standard';
-const SAT_STYLE = 'mapbox://styles/mapbox/satellite-streets-v12';
+const STYLES: Record<View, string> = {
+  twin: 'mapbox://styles/mapbox/dark-v11',
+  city: 'mapbox://styles/mapbox/standard',
+  satellite: 'mapbox://styles/mapbox/satellite-streets-v12',
+};
 
 type MapboxGL = any; // loaded from the CDN, so no bundled types
 
@@ -36,17 +40,44 @@ function loadMapbox(): Promise<MapboxGL> {
   });
 }
 
+function firstLabelLayer(map: any) {
+  return map.getStyle().layers.find((l: any) => l.type === 'symbol' && l.layout && l.layout['text-field'])?.id;
+}
+
 // 3D building blocks on top of the satellite imagery.
 function addSatelliteBuildings(map: any) {
   try {
     if (map.getLayer('3d-buildings')) return;
-    const labelLayer = map.getStyle().layers.find((l: any) => l.type === 'symbol' && l.layout && l.layout['text-field']);
     map.addLayer({
       id: '3d-buildings', source: 'composite', 'source-layer': 'building', filter: ['==', 'extrude', 'true'],
       type: 'fill-extrusion', minzoom: 15,
       paint: { 'fill-extrusion-color': '#d9d4c7', 'fill-extrusion-height': ['get', 'height'], 'fill-extrusion-base': ['get', 'min_height'], 'fill-extrusion-opacity': 0.55 },
-    }, labelLayer?.id);
+    }, firstLabelLayer(map));
   } catch { /* style not ready, imagery still shows */ }
+}
+
+// Digital-twin look: glowing blue buildings colored by height, purple sky and fog.
+function addTwinLook(map: any) {
+  try {
+    map.setFog({
+      color: 'rgb(40, 20, 80)', 'high-color': 'rgb(214, 63, 208)', 'horizon-blend': 0.3,
+      'space-color': 'rgb(14, 8, 46)', 'star-intensity': 0.5,
+    });
+    if (map.getLayer('twin-buildings')) return;
+    map.addLayer({
+      id: 'twin-buildings', source: 'composite', 'source-layer': 'building', filter: ['==', 'extrude', 'true'],
+      type: 'fill-extrusion', minzoom: 12,
+      paint: {
+        'fill-extrusion-color': ['interpolate', ['linear'], ['coalesce', ['get', 'height'], 8],
+          0, '#3d6bd6', 25, '#5b8def', 60, '#8fc1ff', 120, '#c9e6ff', 220, '#ffffff'],
+        'fill-extrusion-height': ['coalesce', ['get', 'height'], 8],
+        'fill-extrusion-base': ['coalesce', ['get', 'min_height'], 0],
+        'fill-extrusion-opacity': 0.92,
+        'fill-extrusion-vertical-gradient': true,
+        'fill-extrusion-emissive-strength': 0.6,
+      },
+    }, firstLabelLayer(map));
+  } catch { /* style not ready */ }
 }
 
 export default function SitePage() {
@@ -54,14 +85,14 @@ export default function SitePage() {
   const mapRef = useRef<any>(null);
   const markerRef = useRef<any>(null);
   const presetRef = useRef<Preset>('dusk');
-  const viewRef = useRef<View>('city');
+  const viewRef = useRef<View>('twin');
   const [token, setToken] = useState(BUILD_TOKEN);
   const [tokenDraft, setTokenDraft] = useState('');
   const [site, setSite] = useState(DEFAULT_SITE);
   const [query, setQuery] = useState('');
   const [status, setStatus] = useState('');
   const [preset, setPreset] = useState<Preset>('dusk');
-  const [view, setView] = useState<View>('city');
+  const [view, setView] = useState<View>('twin');
 
   // Read ?lat=..&lng=.. from the address bar.
   useEffect(() => {
@@ -70,6 +101,11 @@ export default function SitePage() {
     if (p.has('lat') && p.has('lng') && Number.isFinite(lat) && Number.isFinite(lng) && Math.abs(lat) <= 90 && Math.abs(lng) <= 180) setSite({ lat, lng });
   }, []);
 
+  function applyLook(map: any, v: View) {
+    if (v === 'twin') addTwinLook(map);
+    else if (v === 'satellite') addSatelliteBuildings(map);
+  }
+
   // Create the map once a token exists.
   useEffect(() => {
     if (!token || !container.current) return;
@@ -77,18 +113,18 @@ export default function SitePage() {
     loadMapbox().then((mapboxgl) => {
       if (cancelled || !container.current) return;
       mapboxgl.accessToken = token;
-      const isSat = viewRef.current === 'satellite';
+      const v = viewRef.current;
       const map = new mapboxgl.Map({
         container: container.current,
-        style: isSat ? SAT_STYLE : CITY_STYLE,
-        center: [site.lng, site.lat], zoom: 16.2, pitch: 60, bearing: -17,
-        ...(isSat ? {} : { config: { basemap: { lightPreset: presetRef.current, show3dObjects: true, showPointOfInterestLabels: true } } }),
+        style: STYLES[v],
+        center: [site.lng, site.lat], zoom: 15.8, pitch: 62, bearing: -17,
+        ...(v === 'city' ? { config: { basemap: { lightPreset: presetRef.current, show3dObjects: true, showPointOfInterestLabels: true } } } : {}),
       });
       mapRef.current = map;
       map.addControl(new mapboxgl.NavigationControl());
       map.on('error', (e: any) => setStatus('Map error: ' + (e?.error?.message || 'unknown')));
       map.on('load', () => {
-        if (viewRef.current === 'satellite') addSatelliteBuildings(map);
+        applyLook(map, viewRef.current);
         markerRef.current = new mapboxgl.Marker().setLngLat([site.lng, site.lat]).addTo(map);
       });
     }).catch((e: Error) => setStatus(e.message));
@@ -99,18 +135,18 @@ export default function SitePage() {
 
   // Fly to a new site.
   useEffect(() => {
-    mapRef.current?.flyTo({ center: [site.lng, site.lat], zoom: 16.2, pitch: 60, duration: 2500 });
+    mapRef.current?.flyTo({ center: [site.lng, site.lat], zoom: 15.8, pitch: 62, duration: 2500 });
     markerRef.current?.setLngLat([site.lng, site.lat]);
   }, [site]);
 
-  // Change the lighting (dawn / day / dusk / night). City view only.
+  // Change the lighting (dawn / day / dusk / night). 3D city view only.
   function choosePreset(p: Preset) {
     presetRef.current = p;
     setPreset(p);
-    try { mapRef.current?.setConfigProperty('basemap', 'lightPreset', p); } catch { /* map still loading or satellite view */ }
+    try { mapRef.current?.setConfigProperty('basemap', 'lightPreset', p); } catch { /* map still loading or other view */ }
   }
 
-  // Switch between the City view and the Satellite view.
+  // Switch between Twin, 3D city and Satellite.
   function chooseView(v: View) {
     if (v === viewRef.current) return;
     viewRef.current = v;
@@ -118,11 +154,11 @@ export default function SitePage() {
     setStatus('');
     const map = mapRef.current;
     if (!map) return;
-    if (v === 'satellite') {
-      map.setStyle(SAT_STYLE);
-      map.once('style.load', () => addSatelliteBuildings(map));
+    if (v === 'city') {
+      map.setStyle(STYLES.city, { config: { basemap: { lightPreset: presetRef.current, show3dObjects: true, showPointOfInterestLabels: true } } });
     } else {
-      map.setStyle(CITY_STYLE, { config: { basemap: { lightPreset: presetRef.current, show3dObjects: true, showPointOfInterestLabels: true } } });
+      map.setStyle(STYLES[v]);
+      map.once('style.load', () => applyLook(map, v));
     }
   }
 
@@ -142,7 +178,8 @@ export default function SitePage() {
   }
 
   const box: React.CSSProperties = { padding: 12, border: '1px solid #c9cfc4', borderRadius: 8, fontSize: 16, width: '100%' };
-  const chip = (active: boolean, disabled = false): React.CSSProperties => ({ padding: '8px 14px', borderRadius: 999, border: '1px solid #283229', background: active ? '#283229' : '#fff', color: active ? '#fff' : '#283229', fontSize: 14, textTransform: 'capitalize', opacity: disabled ? 0.4 : 1 });
+  const chip = (active: boolean, disabled = false): React.CSSProperties => ({ padding: '8px 14px', borderRadius: 999, border: '1px solid #283229', background: active ? '#283229' : '#fff', color: active ? '#fff' : '#283229', fontSize: 14, opacity: disabled ? 0.4 : 1 });
+  const viewLabel: Record<View, string> = { twin: 'Twin', city: '3D city', satellite: 'Satellite' };
   return (
     <main style={{ maxWidth: 960, margin: '0 auto', padding: 16 }}>
       <p style={{ margin: '0 0 8px' }}><a href="/">← Back to Schema</a></p>
@@ -160,12 +197,13 @@ export default function SitePage() {
             <button style={{ ...box, width: 110, background: '#283229', color: '#fff' }}>Go</button>
           </form>
           <div style={{ display: 'flex', gap: 8, marginBottom: 8, flexWrap: 'wrap' }}>
-            <button type="button" style={chip(view === 'city')} onClick={() => chooseView('city')}>3D city</button>
-            <button type="button" style={chip(view === 'satellite')} onClick={() => chooseView('satellite')}>Satellite</button>
+            {(['twin', 'city', 'satellite'] as View[]).map((v) => <button key={v} type="button" style={chip(view === v)} onClick={() => chooseView(v)}>{viewLabel[v]}</button>)}
           </div>
-          <div style={{ display: 'flex', gap: 8, marginBottom: 8, flexWrap: 'wrap' }}>
-            {PRESETS.map((p) => <button key={p} type="button" disabled={view === 'satellite'} style={chip(preset === p && view === 'city', view === 'satellite')} onClick={() => choosePreset(p)}>{p}</button>)}
-          </div>
+          {view === 'city' && (
+            <div style={{ display: 'flex', gap: 8, marginBottom: 8, flexWrap: 'wrap' }}>
+              {PRESETS.map((p) => <button key={p} type="button" style={{ ...chip(preset === p), textTransform: 'capitalize' }} onClick={() => choosePreset(p)}>{p}</button>)}
+            </div>
+          )}
           <p style={{ minHeight: 22, margin: '0 0 8px', fontSize: 14 }}>{status || `${site.lat.toFixed(5)}, ${site.lng.toFixed(5)}`}</p>
           <div ref={container} style={{ width: '100%', height: '65vh', minHeight: 340, borderRadius: 12, overflow: 'hidden', border: '1px solid #c9cfc4' }} />
           <p style={{ fontSize: 13, color: '#5d6b5e' }}>Drag to pan, two fingers to tilt and rotate. Imagery is a visual aid only, not survey data.</p>
