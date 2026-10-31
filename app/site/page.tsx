@@ -1,14 +1,19 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 
-// Worldwide 3D city view. Mapbox GL JS is loaded from Mapbox's CDN at runtime,
-// so no npm dependency (and no lockfile change) is needed.
-// Uses Mapbox's Standard style: 3D buildings, landmarks and lighting for cities worldwide.
+// Worldwide site view with two looks:
+//  - City: Mapbox Standard style (3D buildings, landmarks, lighting presets)
+//  - Satellite: real aerial imagery with street labels and 3D building blocks on top
+// Mapbox GL JS is loaded from Mapbox's CDN at runtime, so no npm dependency is needed.
 const MAPBOX_VERSION = 'v3.9.0';
 const BUILD_TOKEN = (() => { try { return process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? ''; } catch { return ''; } })();
 const DEFAULT_SITE = { lat: -1.2673, lng: 36.8060 }; // Westlands, Nairobi. Search any place, or use ?lat=..&lng=..
 const PRESETS = ['dawn', 'day', 'dusk', 'night'] as const;
 type Preset = (typeof PRESETS)[number];
+type View = 'city' | 'satellite';
+
+const CITY_STYLE = 'mapbox://styles/mapbox/standard';
+const SAT_STYLE = 'mapbox://styles/mapbox/satellite-streets-v12';
 
 type MapboxGL = any; // loaded from the CDN, so no bundled types
 
@@ -31,17 +36,32 @@ function loadMapbox(): Promise<MapboxGL> {
   });
 }
 
+// 3D building blocks on top of the satellite imagery.
+function addSatelliteBuildings(map: any) {
+  try {
+    if (map.getLayer('3d-buildings')) return;
+    const labelLayer = map.getStyle().layers.find((l: any) => l.type === 'symbol' && l.layout && l.layout['text-field']);
+    map.addLayer({
+      id: '3d-buildings', source: 'composite', 'source-layer': 'building', filter: ['==', 'extrude', 'true'],
+      type: 'fill-extrusion', minzoom: 15,
+      paint: { 'fill-extrusion-color': '#d9d4c7', 'fill-extrusion-height': ['get', 'height'], 'fill-extrusion-base': ['get', 'min_height'], 'fill-extrusion-opacity': 0.55 },
+    }, labelLayer?.id);
+  } catch { /* style not ready, imagery still shows */ }
+}
+
 export default function SitePage() {
   const container = useRef<HTMLDivElement>(null);
   const mapRef = useRef<any>(null);
   const markerRef = useRef<any>(null);
   const presetRef = useRef<Preset>('dusk');
+  const viewRef = useRef<View>('city');
   const [token, setToken] = useState(BUILD_TOKEN);
   const [tokenDraft, setTokenDraft] = useState('');
   const [site, setSite] = useState(DEFAULT_SITE);
   const [query, setQuery] = useState('');
   const [status, setStatus] = useState('');
   const [preset, setPreset] = useState<Preset>('dusk');
+  const [view, setView] = useState<View>('city');
 
   // Read ?lat=..&lng=.. from the address bar.
   useEffect(() => {
@@ -57,16 +77,18 @@ export default function SitePage() {
     loadMapbox().then((mapboxgl) => {
       if (cancelled || !container.current) return;
       mapboxgl.accessToken = token;
+      const isSat = viewRef.current === 'satellite';
       const map = new mapboxgl.Map({
         container: container.current,
-        style: 'mapbox://styles/mapbox/standard',
+        style: isSat ? SAT_STYLE : CITY_STYLE,
         center: [site.lng, site.lat], zoom: 16.2, pitch: 60, bearing: -17,
-        config: { basemap: { lightPreset: presetRef.current, show3dObjects: true, showPointOfInterestLabels: true } },
+        ...(isSat ? {} : { config: { basemap: { lightPreset: presetRef.current, show3dObjects: true, showPointOfInterestLabels: true } } }),
       });
       mapRef.current = map;
       map.addControl(new mapboxgl.NavigationControl());
       map.on('error', (e: any) => setStatus('Map error: ' + (e?.error?.message || 'unknown')));
       map.on('load', () => {
+        if (viewRef.current === 'satellite') addSatelliteBuildings(map);
         markerRef.current = new mapboxgl.Marker().setLngLat([site.lng, site.lat]).addTo(map);
       });
     }).catch((e: Error) => setStatus(e.message));
@@ -81,11 +103,27 @@ export default function SitePage() {
     markerRef.current?.setLngLat([site.lng, site.lat]);
   }, [site]);
 
-  // Change the lighting (dawn / day / dusk / night).
+  // Change the lighting (dawn / day / dusk / night). City view only.
   function choosePreset(p: Preset) {
     presetRef.current = p;
     setPreset(p);
-    try { mapRef.current?.setConfigProperty('basemap', 'lightPreset', p); } catch { /* map still loading */ }
+    try { mapRef.current?.setConfigProperty('basemap', 'lightPreset', p); } catch { /* map still loading or satellite view */ }
+  }
+
+  // Switch between the City view and the Satellite view.
+  function chooseView(v: View) {
+    if (v === viewRef.current) return;
+    viewRef.current = v;
+    setView(v);
+    setStatus('');
+    const map = mapRef.current;
+    if (!map) return;
+    if (v === 'satellite') {
+      map.setStyle(SAT_STYLE);
+      map.once('style.load', () => addSatelliteBuildings(map));
+    } else {
+      map.setStyle(CITY_STYLE, { config: { basemap: { lightPreset: presetRef.current, show3dObjects: true, showPointOfInterestLabels: true } } });
+    }
   }
 
   async function search(event: React.FormEvent) {
@@ -104,7 +142,7 @@ export default function SitePage() {
   }
 
   const box: React.CSSProperties = { padding: 12, border: '1px solid #c9cfc4', borderRadius: 8, fontSize: 16, width: '100%' };
-  const chip = (active: boolean): React.CSSProperties => ({ padding: '8px 14px', borderRadius: 999, border: '1px solid #283229', background: active ? '#283229' : '#fff', color: active ? '#fff' : '#283229', fontSize: 14, textTransform: 'capitalize' });
+  const chip = (active: boolean, disabled = false): React.CSSProperties => ({ padding: '8px 14px', borderRadius: 999, border: '1px solid #283229', background: active ? '#283229' : '#fff', color: active ? '#fff' : '#283229', fontSize: 14, textTransform: 'capitalize', opacity: disabled ? 0.4 : 1 });
   return (
     <main style={{ maxWidth: 960, margin: '0 auto', padding: 16 }}>
       <p style={{ margin: '0 0 8px' }}><a href="/">← Back to Schema</a></p>
@@ -122,7 +160,11 @@ export default function SitePage() {
             <button style={{ ...box, width: 110, background: '#283229', color: '#fff' }}>Go</button>
           </form>
           <div style={{ display: 'flex', gap: 8, marginBottom: 8, flexWrap: 'wrap' }}>
-            {PRESETS.map((p) => <button key={p} type="button" style={chip(preset === p)} onClick={() => choosePreset(p)}>{p}</button>)}
+            <button type="button" style={chip(view === 'city')} onClick={() => chooseView('city')}>3D city</button>
+            <button type="button" style={chip(view === 'satellite')} onClick={() => chooseView('satellite')}>Satellite</button>
+          </div>
+          <div style={{ display: 'flex', gap: 8, marginBottom: 8, flexWrap: 'wrap' }}>
+            {PRESETS.map((p) => <button key={p} type="button" disabled={view === 'satellite'} style={chip(preset === p && view === 'city', view === 'satellite')} onClick={() => choosePreset(p)}>{p}</button>)}
           </div>
           <p style={{ minHeight: 22, margin: '0 0 8px', fontSize: 14 }}>{status || `${site.lat.toFixed(5)}, ${site.lng.toFixed(5)}`}</p>
           <div ref={container} style={{ width: '100%', height: '65vh', minHeight: 340, borderRadius: 12, overflow: 'hidden', border: '1px solid #c9cfc4' }} />
