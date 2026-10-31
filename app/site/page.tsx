@@ -61,8 +61,15 @@ function addTwinLook(map: any) {
   try {
     map.setFog({
       color: 'rgb(40, 20, 80)', 'high-color': 'rgb(214, 63, 208)', 'horizon-blend': 0.3,
-      'space-color': 'rgb(14, 8, 46)', 'star-intensity': 0.5,
+      'space-color': 'rgb(14, 8, 46)', 'star-intensity': 0.5, range: [0.6, 12],
     });
+    // Recolor the ground: deep teal land, green parks, bright blue water.
+    const paint = (id: string, prop: string, value: string) => { try { if (map.getLayer(id)) map.setPaintProperty(id, prop, value); } catch { /* layer not in this style */ } };
+    paint('land', 'background-color', '#0f3a4a');
+    paint('landcover', 'fill-color', '#1f6b4a');
+    paint('national-park', 'fill-color', '#1f7a4f');
+    paint('landuse', 'fill-color', '#1d6a4c');
+    paint('water', 'fill-color', '#2a86e8');
     if (map.getLayer('twin-buildings')) return;
     map.addLayer({
       id: 'twin-buildings', source: 'composite', 'source-layer': 'building', filter: ['==', 'extrude', 'true'],
@@ -74,7 +81,7 @@ function addTwinLook(map: any) {
         'fill-extrusion-base': ['coalesce', ['get', 'min_height'], 0],
         'fill-extrusion-opacity': 0.92,
         'fill-extrusion-vertical-gradient': true,
-        'fill-extrusion-emissive-strength': 0.6,
+        'fill-extrusion-emissive-strength': 0.85,
       },
     }, firstLabelLayer(map));
   } catch { /* style not ready */ }
@@ -117,7 +124,7 @@ export default function SitePage() {
       const map = new mapboxgl.Map({
         container: container.current,
         style: STYLES[v],
-        center: [site.lng, site.lat], zoom: 15.8, pitch: 62, bearing: -17,
+        center: [site.lng, site.lat], zoom: 15.2, pitch: 55, bearing: -17,
         ...(v === 'city' ? { config: { basemap: { lightPreset: presetRef.current, show3dObjects: true, showPointOfInterestLabels: true } } } : {}),
       });
       mapRef.current = map;
@@ -135,7 +142,7 @@ export default function SitePage() {
 
   // Fly to a new site.
   useEffect(() => {
-    mapRef.current?.flyTo({ center: [site.lng, site.lat], zoom: 15.8, pitch: 62, duration: 2500 });
+    mapRef.current?.flyTo({ center: [site.lng, site.lat], zoom: 15.2, pitch: 55, duration: 2500 });
     markerRef.current?.setLngLat([site.lng, site.lat]);
   }, [site]);
 
