@@ -100,11 +100,14 @@ export default function SitePage() {
   const [status, setStatus] = useState('');
   const [preset, setPreset] = useState<Preset>('dusk');
   const [view, setView] = useState<View>('twin');
+  const [autoQ, setAutoQ] = useState('');
 
   // Read ?lat=..&lng=.. from the address bar.
   useEffect(() => {
     const p = new URLSearchParams(window.location.search);
     const lat = Number(p.get('lat')), lng = Number(p.get('lng'));
+    const q = p.get('q');
+    if (q && !p.has('lat')) { setQuery(q); setAutoQ(q); }
     if (p.has('lat') && p.has('lng') && Number.isFinite(lat) && Number.isFinite(lng) && Math.abs(lat) <= 90 && Math.abs(lng) <= 180) setSite({ lat, lng });
   }, []);
 
@@ -169,9 +172,13 @@ export default function SitePage() {
     }
   }
 
-  async function search(event: React.FormEvent) {
-    event.preventDefault();
-    const q = query.trim();
+  function search(event: React.FormEvent) { event.preventDefault(); void runSearch(query); }
+
+  // Run the project's address/title search once, as soon as a token exists.
+  useEffect(() => { if (token && autoQ) { const q = autoQ; setAutoQ(''); void runSearch(q); } }, [token, autoQ]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  async function runSearch(raw: string) {
+    const q = raw.trim();
     if (!q || !token) return;
     setStatus('Searching…');
     try {
@@ -189,7 +196,7 @@ export default function SitePage() {
   const viewLabel: Record<View, string> = { twin: 'Twin', city: '3D city', satellite: 'Satellite' };
   return (
     <main style={{ maxWidth: 960, margin: '0 auto', padding: 16 }}>
-      <p style={{ margin: '0 0 8px' }}><a href="/">← Back to Schema</a></p>
+      <p style={{ margin: '0 0 8px' }}><a href="/">← Back to Schema</a> · <a href="/real3d">Real 3D (Google)</a></p>
       <h1 style={{ fontSize: 22, margin: '0 0 12px' }}>Site view</h1>
       {!token ? (
         <section style={{ background: '#fff', padding: 16, borderRadius: 12 }}>
@@ -212,6 +219,7 @@ export default function SitePage() {
             </div>
           )}
           <p style={{ minHeight: 22, margin: '0 0 8px', fontSize: 14 }}>{status || `${site.lat.toFixed(5)}, ${site.lng.toFixed(5)}`}</p>
+          <p style={{ margin: '0 0 8px', fontSize: 14 }}><a href={`/simulate?lat=${site.lat}&lng=${site.lng}`}>Climate and durability estimate for this site →</a></p>
           <div ref={container} style={{ width: '100%', height: '65vh', minHeight: 340, borderRadius: 12, overflow: 'hidden', border: '1px solid #c9cfc4' }} />
           <p style={{ fontSize: 13, color: '#5d6b5e' }}>Drag to pan, two fingers to tilt and rotate. Imagery is a visual aid only, not survey data.</p>
         </>
