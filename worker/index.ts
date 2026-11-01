@@ -8,14 +8,19 @@ import { handleApi } from "../server/api";
 import { handleIntake } from "../server/intake";
 import { handlePermits } from "../server/permits";
 import type { AutoEnvironment } from "../src/autonomy/types";
-import { handleAuthRoutes, withUser, type AuthEnv } from "./supabase-auth";
+import { authConfigured, handleAuthRoutes, withUser, type AuthEnv } from "./supabase-auth";
 
 const worker = {
   async fetch(request: Request, env: Cloudflare.Env, ctx: ExecutionContext<{ CONNECTORS?: ConnectorBinding }>) {
-    const authResponse = await handleAuthRoutes(request, env as unknown as AuthEnv);
+    const authEnv = env as unknown as AuthEnv;
+    const authResponse = await handleAuthRoutes(request, authEnv, Boolean(import.meta.env.DEV));
     if (authResponse) return authResponse;
-    request = await withUser(request, env as unknown as AuthEnv, Boolean(import.meta.env.DEV));
+    request = await withUser(request, authEnv, Boolean(import.meta.env.DEV));
     const path = new URL(request.url).pathname;
+    // The workspace requires a verified session. The public site and auth pages stay open.
+    if ((path === "/app" || path.startsWith("/app/")) && authConfigured(authEnv) && !request.headers.get("oai-authenticated-user-id")) {
+      return Response.redirect(new URL("/login?next=%2Fapp", request.url).toString(), 302);
+    }
     const runtime = env as unknown as AutoEnvironment;
     if (path.startsWith("/api/autonomy/")) {
       const response=handleAutonomyApi(request,runtime);

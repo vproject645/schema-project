@@ -58,10 +58,23 @@ npm run validate
 
 Build output is ignored. It includes a Vinext Worker, browser assets and append-only Drizzle migrations. Publishing is a separate step; forks must create their own Site identity instead of deploying over this development Site.
 
+## Routes
+
+| Route | Purpose |
+| --- | --- |
+| `/` | Public landing page with Log in and Register in the header |
+| `/login`, `/register` | Passwordless email-link sign-in and account creation (Supabase) |
+| `/app` | The agent workspace. Requires a verified session when Supabase is configured |
+| `/legacy` | Earlier manual permit desk and residential study |
+
+Set `SUPABASE_URL` and `SUPABASE_ANON_KEY` as Worker secrets, and add `https://<your-domain>/auth/callback` to the Supabase Auth redirect URLs. Without them, `/login` and `/register` show a "not set up" page in production and fall back to the local mock sign-in in development.
+
 ## Source map
 
 | Location | Responsibility |
 | --- | --- |
+| `app/page.tsx`, `app/landing.css` | Public landing page |
+| `worker/supabase-auth.ts` | Login, register, callback, session cookie and `/app` gating |
 | `src/components/AgentWorkspace.tsx` | Conversation, proposal, decisions, intake and preferences |
 | `src/components/OfficeConceptView.tsx` | Linked floor plan, 3D and room editing |
 | `src/autonomy/corrections.ts` | Authoritative comments, immutable page evidence, review fingerprints and coverage |

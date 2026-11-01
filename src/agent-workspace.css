@@ -412,3 +412,5 @@
 .sa-project-blocker[open]>summary { margin-bottom: 14px; }
 
 .sa-agent-activity:has(.sa-activity-history[open]),.sa-agent-tools:has(.sa-activity-history[open]) { align-items: start; }
+
+.sa-signout{font-size:13px;font-weight:600;color:var(--sa-muted);text-decoration:none;padding:8px 6px;border-radius:8px}.sa-signout:hover{color:var(--sa-ink);background:var(--sa-soft)}

@@ -4,7 +4,7 @@ The current submission package (video script, judge access, evidence table and c
 
 ## Product and track
 
-Schema targets the supplied **Build for Your World** problem statement: reduce repetitive commercial project coordination while leaving consequential choices with the architect or contractor. The primary experience is now the autonomous project workspace at `/`; the manual correction desk and residential study are retained at `/legacy`.
+Schema targets the supplied **Build for Your World** problem statement: reduce repetitive commercial project coordination while leaving consequential choices with the architect or contractor. The primary experience is the autonomous project workspace at `/app`, reached from the landing page at `/` after Register or Log in; the manual correction desk and residential study are retained at `/legacy`.
 
 Show one fictional Portland office fit-out progressing from a brief and PDF through understanding, a linked floor plan/3D concept, permit strategy, a consolidated missing-information request and a reviewed handoff. Never substitute the residential R5 rules for commercial requirements.
 
