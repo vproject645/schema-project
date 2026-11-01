@@ -216,7 +216,7 @@ export default function App() {
         });
       log(
         result.mode === "meta"
-          ? "Meta proposal received"
+          ? "AI proposal received"
           : "Local command checked",
         `${result.steps.length} recorded tool actions; no change applied yet.`,
       );
@@ -248,17 +248,17 @@ export default function App() {
       });
       const data = await response.json();
       if (!response.ok)
-        throw new Error(data.error || "Unable to connect to Meta.");
+        throw new Error(data.error || "Unable to connect to the AI model.");
       setApiKey(draftKey);
       setVerified(true);
       setDraftKey("");
       setMode("meta");
       setModal(false);
-      setNotice("Meta connected. New assistant requests will use Muse Spark.");
-      log("Meta connected", "Muse Spark 1.3 · live model access verified");
+      setNotice("AI connected. New assistant requests will use Schema AI.");
+      log("AI connected", "Live model access verified");
     } catch (error) {
       setConnectError(
-        error instanceof Error ? error.message : "Meta could not be connected.",
+        error instanceof Error ? error.message : "The AI service could not be connected.",
       );
     } finally {
       setConnecting(false);
@@ -335,7 +335,7 @@ export default function App() {
         </nav>
         <div className="header-actions">
           <button
-            aria-label={connected ? "Meta connected" : "Connect Meta"}
+            aria-label={connected ? "AI connected" : "Connect AI"}
             className={`button connection-button ${connected ? "connected" : ""}`}
             onClick={() => {
               setConnectError("");
@@ -343,7 +343,7 @@ export default function App() {
             }}
           >
             <Link size={16} />
-            <span>{connected ? "Meta connected" : "Connect Meta"}</span>
+            <span>{connected ? "AI connected" : "Connect AI"}</span>
           </button>
           {tab !== "permits" && <button className="button primary" onClick={exportPacket}>
             <FileDown size={16} />
@@ -616,7 +616,7 @@ export default function App() {
                 proposal.patch,
                 messages.find((message) => message.id === proposal.messageId)
                   ?.mode === "meta"
-                  ? "Meta proposal applied"
+                  ? "AI proposal applied"
                   : "Local proposal applied",
               );
               setProposal(null);
@@ -673,7 +673,7 @@ export default function App() {
       >
         <button
           className="modal-close icon-button"
-          aria-label="Close Meta connection"
+          aria-label="Close AI connection"
           onClick={() => {
             setModal(false);
             setDraftKey("");
@@ -685,21 +685,21 @@ export default function App() {
           <Link size={24} />
         </div>
         <h2>
-          {connected ? "Your Meta connection" : "Bring Meta into the workflow."}
+          {connected ? "Your AI connection" : "Bring the AI model into the workflow."}
         </h2>
         <p>
-          Connect Muse Spark to interpret requests, call the planning tools, and
+          Connect the AI model to interpret requests, call the planning tools, and
           propose changes to your design.
         </p>
         {connected ? (
           <>
             <div className="connected-state">
               <Check size={18} />
-              <span>Muse Spark 1.3 connected</span>
+              <span>AI model connected</span>
             </div>
             <p className="connection-help">
               A key entered here stays in this tab’s memory. It is sent only to
-              this app’s server and Meta’s API, and is cleared when you refresh
+              this app’s server and the model API, and is cleared when you refresh
               or disconnect.
             </p>
             <button
@@ -712,7 +712,7 @@ export default function App() {
                 setNotice(
                   serverConfigured
                     ? "Switched to local mode. Server credentials remain configured."
-                    : "Meta disconnected. Local demonstration is available.",
+                    : "AI disconnected. Local demonstration is available.",
                 );
               }}
             >
@@ -726,7 +726,7 @@ export default function App() {
               void connect();
             }}
           >
-            <label htmlFor="meta-key">Meta Model API key</label>
+            <label htmlFor="meta-key">Model API key</label>
             <input
               id="meta-key"
               type="password"
@@ -744,7 +744,7 @@ export default function App() {
             <p className="connection-help">
               Kept in this tab’s memory, never saved to the project or device
               storage. Requests pass through this app’s server to api.meta.ai.
-              Activation and billing must be complete in your Meta account.
+              Activation and billing must be complete in your AI account.
             </p>
             {connectError && (
               <div className="form-error" role="alert">
@@ -759,13 +759,13 @@ export default function App() {
               {connecting ? (
                 <>
                   <LoaderCircle size={16} className="spin" />
-                  Checking Meta access…
+                  Checking model access…
                 </>
               ) : (
                 <>
                   {serverConfigured && !draftKey
                     ? "Verify server connection"
-                    : "Connect Muse Spark"}
+                    : "Connect the AI model"}
                   <ArrowRight size={15} />
                 </>
               )}
@@ -776,7 +776,7 @@ export default function App() {
               rel="noreferrer"
               className="setup-link"
             >
-              Open Meta’s account setup guide ↗
+              Open the model account setup guide ↗
             </a>
           </form>
         )}

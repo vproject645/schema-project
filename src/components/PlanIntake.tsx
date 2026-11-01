@@ -90,7 +90,7 @@ export function PlanIntake({
       if (!response.ok)
         throw new Error(data.error || "The plan could not be read.");
       if (data.mode !== "meta" || !data.extracted)
-        throw new Error("The service did not return a Meta extraction.");
+        throw new Error("The service did not return a AI extraction.");
       setResult(data.extracted);
     } catch (e) {
       if (!(e instanceof DOMException && e.name === "AbortError"))
@@ -141,7 +141,7 @@ export function PlanIntake({
       </div>
       <h2>Start with what’s on the drawing.</h2>
       <p>
-        Meta reads explicit printed dimensions. You review them before anything
+        The AI model reads explicit printed dimensions. You review them before anything
         changes.
       </p>
       <input
@@ -179,8 +179,8 @@ export function PlanIntake({
       {!result && (
         <>
           <p className="connection-help">
-            This image will be sent through Schema to Meta when you choose Read
-            with Meta. It is not saved to your project or browser storage. Use a
+            This image will be sent through Schema to the AI model when you choose Read
+            with the AI model. It is not saved to your project or browser storage. Use a
             drawing you have permission to share.
           </p>
           {connected ? (
@@ -196,7 +196,7 @@ export function PlanIntake({
                 </>
               ) : (
                 <>
-                  Read with Meta
+                  Read with AI
                   <ArrowRight size={15} />
                 </>
               )}
@@ -206,7 +206,7 @@ export function PlanIntake({
               className="button primary connect-submit"
               onClick={onConnect}
             >
-              Connect Meta first
+              Connect the AI model first
               <ArrowRight size={15} />
             </button>
           )}
@@ -221,7 +221,7 @@ export function PlanIntake({
         <div className="intake-results">
           <div className="intake-result-heading">
             <Check size={16} />
-            <strong>Meta’s proposed transcription</strong>
+            <strong>Proposed transcription</strong>
           </div>
           <p>{result.summary}</p>
           <dl>

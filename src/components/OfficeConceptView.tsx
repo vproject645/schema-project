@@ -8,7 +8,7 @@ import type { OfficeConcept, OfficeRoom } from "../autonomy/types";
 import "../office-concept.css";
 
 const roomColors: Record<OfficeRoom["kind"], string> = {
-  office: "#d8dfcf", meeting: "#d8d6c8", open: "#e9e7dc", support: "#d5e0db",
+  office: "#cfd8df", meeting: "#d8d6c8", open: "#e9e7dc", support: "#d5e0db",
 };
 function n(value: number) { return Number(value.toFixed(2)); }
 type Props = { concept: OfficeConcept; onChange?: (concept: OfficeConcept) => void };
@@ -18,19 +18,19 @@ function Plan({ concept, selected, onSelect }: { concept: OfficeConcept; selecte
   const font = Math.max(concept.width, concept.depth) * .021;
   return <svg className="office-plan" role="img" aria-label={`Commercial office concept floor plan, ${concept.width} by ${concept.depth} feet`} viewBox={`${-padding} ${-padding} ${concept.width + padding * 2} ${concept.depth + padding * 2}`}>
     <title>Proposed office concept. Geometry only; not a permit drawing.</title>
-    <rect x={0} y={0} width={concept.width} height={concept.depth} fill="#f9faf5" stroke="#55614d" strokeWidth={0.25} />
+    <rect x={0} y={0} width={concept.width} height={concept.depth} fill="#f5f8fa" stroke="#4e5861" strokeWidth={0.25} />
     {concept.circulation.map((route, i) => <g key={i}><rect x={route.x} y={route.y} width={route.width} height={route.depth} fill="#f2eedc" stroke="#b9b59b" strokeWidth={0.1} strokeDasharray=".5 .4" /><text x={route.x + route.width / 2} y={route.y + route.depth / 2} dominantBaseline="middle" textAnchor="middle" fontSize={font * .8} fill="#8b825f">Circulation concept</text></g>)}
     {concept.rooms.map(room => <g key={room.id} role="button" tabIndex={0} aria-label={`Select ${room.name}`} onClick={() => onSelect(room.id)} onKeyDown={event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); onSelect(room.id); } }} className="office-plan-room">
-      <rect x={room.x} y={room.y} width={room.width} height={room.depth} fill={roomColors[room.kind]} stroke={selected === room.id ? "#3b5730" : "#75806a"} strokeWidth={selected === room.id ? .35 : .14} />
-      <text x={room.x + room.width / 2} y={room.y + room.depth / 2 - font * .5} dominantBaseline="middle" textAnchor="middle" fontSize={Math.min(font, room.width / Math.max(room.name.length * .6, 6))} fill="#3e4d35">{room.name}</text>
-      <text x={room.x + room.width / 2} y={room.y + room.depth / 2 + font * .8} dominantBaseline="middle" textAnchor="middle" fontSize={font * .75} fill="#65725c">{n(room.width)} × {n(room.depth)} ft</text>
+      <rect x={room.x} y={room.y} width={room.width} height={room.depth} fill={roomColors[room.kind]} stroke={selected === room.id ? "#314556" : "#6b767f"} strokeWidth={selected === room.id ? .35 : .14} />
+      <text x={room.x + room.width / 2} y={room.y + room.depth / 2 - font * .5} dominantBaseline="middle" textAnchor="middle" fontSize={Math.min(font, room.width / Math.max(room.name.length * .6, 6))} fill="#36424c">{room.name}</text>
+      <text x={room.x + room.width / 2} y={room.y + room.depth / 2 + font * .8} dominantBaseline="middle" textAnchor="middle" fontSize={font * .75} fill="#5d6871">{n(room.width)} × {n(room.depth)} ft</text>
     </g>)}
     {concept.doors.map(door => {
       const horizontal = door.wall === "north" || door.wall === "south";
-      return <g key={door.id}><line x1={horizontal ? door.x - door.width / 2 : door.x} y1={horizontal ? door.y : door.y - door.width / 2} x2={horizontal ? door.x + door.width / 2 : door.x} y2={horizontal ? door.y : door.y + door.width / 2} stroke="#fbfcf8" strokeWidth={.6} /><line x1={door.x} y1={door.y} x2={horizontal ? door.x : door.x + door.width} y2={horizontal ? door.y - door.width : door.y} stroke="#68745c" strokeWidth={.15} /></g>;
+      return <g key={door.id}><line x1={horizontal ? door.x - door.width / 2 : door.x} y1={horizontal ? door.y : door.y - door.width / 2} x2={horizontal ? door.x + door.width / 2 : door.x} y2={horizontal ? door.y : door.y + door.width / 2} stroke="#f8fafc" strokeWidth={.6} /><line x1={door.x} y1={door.y} x2={horizontal ? door.x : door.x + door.width} y2={horizontal ? door.y - door.width : door.y} stroke="#5d6973" strokeWidth={.15} /></g>;
     })}
-    <text x={concept.width / 2} y={-padding * .4} textAnchor="middle" fontSize={font} fill="#737d68">{n(concept.width)} ft</text>
-    <text transform={`translate(${-padding * .4} ${concept.depth / 2}) rotate(-90)`} textAnchor="middle" fontSize={font} fill="#737d68">{n(concept.depth)} ft</text>
+    <text x={concept.width / 2} y={-padding * .4} textAnchor="middle" fontSize={font} fill="#69737c">{n(concept.width)} ft</text>
+    <text transform={`translate(${-padding * .4} ${concept.depth / 2}) rotate(-90)`} textAnchor="middle" fontSize={font} fill="#69737c">{n(concept.depth)} ft</text>
   </svg>;
 }
 
@@ -66,7 +66,7 @@ function Model({ concept, reset }: { concept: OfficeConcept; reset: number }) {
       const mesh = new THREE.Mesh(geometry, material); mesh.position.set(x, y, z); scene.add(mesh); return mesh;
     }
     const ox = concept.width / 2, oz = concept.depth / 2;
-    block(concept.width + .6, .25, concept.depth + .6, 0, -.14, 0, "#c8cdbf");
+    block(concept.width + .6, .25, concept.depth + .6, 0, -.14, 0, "#bfc7cd");
     for (const room of concept.rooms) block(room.width, .05, room.depth, room.x + room.width / 2 - ox, .02, room.y + room.depth / 2 - oz, roomColors[room.kind]);
     for (const route of concept.circulation) block(route.width, .055, route.depth, route.x + route.width / 2 - ox, .025, route.y + route.depth / 2 - oz, "#e6e0c5");
     // Deduplicate shared wall segments, then cut declared door openings into each segment.
@@ -89,8 +89,8 @@ function Model({ concept, reset }: { concept: OfficeConcept; reset: number }) {
       const height = Math.min(concept.height, 3.6); // Cutaway wall representation; full declared height remains in the model metadata.
       function draw(start: number, end: number) {
         if (end - start < .01) return;
-        if (segment.horizontal) block(end - start, height, .18, (start + end) / 2 - ox, height / 2, segment.fixed - oz, "#87937c");
-        else block(.18, height, end - start, segment.fixed - ox, height / 2, (start + end) / 2 - oz, "#87937c");
+        if (segment.horizontal) block(end - start, height, .18, (start + end) / 2 - ox, height / 2, segment.fixed - oz, "#7d8992");
+        else block(.18, height, end - start, segment.fixed - ox, height / 2, (start + end) / 2 - oz, "#7d8992");
       }
       for (const opening of openings) { draw(cursor, opening.start); cursor = Math.max(cursor, opening.end); }
       draw(cursor, segment.end);

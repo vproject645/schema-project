@@ -1,4 +1,5 @@
 import { CircleDashed, ShieldAlert, ShieldCheck } from "lucide-react";
+import { neutral } from "../brand";
 import type { Artifact, AutoProject, Critique } from "../autonomy/types";
 
 const labels: Record<Critique["status"], string> = {
@@ -20,7 +21,7 @@ export function IndependentReview({ project, artifact }: { project: AutoProject;
   return <section className={`sa-review-check ${critique.status}`} aria-label="Independent review">
     <div className="sa-review-check-head"><Icon size={16} aria-hidden="true"/><h3>Independent review</h3><span>{labels[critique.status]}</span></div>
     <p>
-      {critique.status === "unavailable" ? (critique.note ?? "The independent review did not complete for this stage.") : `A separate Meta review read revision ${reviewed ?? revised} before this checkpoint.`}
+      {critique.status === "unavailable" ? (neutral(critique.note ?? "The independent review did not complete for this stage.")) : `A separate AI review read revision ${reviewed ?? revised} before this checkpoint.`}
       {revised !== undefined && reviewed !== undefined && revised !== reviewed && ` Schema revised it to revision ${revised} in response.`}
       {changedSince && " This part has changed since then."}
     </p>

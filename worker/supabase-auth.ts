@@ -51,20 +51,20 @@ const esc = (v: unknown) => JSON.stringify(v).replace(/</g, "\\u003c");
 
 const MARK = `<svg viewBox="200 207 884 884" width="30" height="30" fill="currentColor" aria-hidden="true"><path d="M638 207 1012 423 805 542.5 575 409.5 575 758 272 583 272 418Z"/><path d="M646 1091 272 875 479 755.5 709 888.5 709 540 1012 715 1012 880Z"/></svg>`;
 
-const CSS = `*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}body{margin:0;font:16px/1.5 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:#17211a;background:#f6f7f2;min-height:100vh;display:grid;-webkit-font-smoothing:antialiased}
-a{color:inherit}.shell{display:grid;min-height:100vh}.side{display:none;background:#17211a;color:#e8efe0;padding:48px;flex-direction:column;justify-content:space-between}
+const CSS = `*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}body{margin:0;font:16px/1.5 "IBM Plex Sans",Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:#14212b;background:#f5f6f4;min-height:100vh;display:grid;-webkit-font-smoothing:antialiased}
+a{color:inherit}.shell{display:grid;min-height:100vh}.side{display:none;background:#14212b;color:#e6edf1;padding:48px;flex-direction:column;justify-content:space-between}
 .brand{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:18px;letter-spacing:-.02em;text-decoration:none;color:inherit}
-.side h2{font-size:34px;line-height:1.1;letter-spacing:-.03em;margin:0 0 16px;max-width:12em}.side p{color:#aab6a3;margin:0;max-width:26em}.side ul{list-style:none;padding:0;margin:32px 0 0;display:grid;gap:14px}.side li{display:flex;gap:10px;color:#cfdac7;font-size:15px}.side li::before{content:"";flex:none;width:18px;height:18px;margin-top:2px;border-radius:50%;background:#c4ec63 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2317211a' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5 9-10'/%3E%3C/svg%3E") center/12px no-repeat}
-.main{display:grid;align-content:center;justify-items:center;padding:24px 20px 40px;gap:28px}.top{width:100%;max-width:400px;display:flex;justify-content:space-between;align-items:center}.top .brand{font-size:17px}.top a.back{font-size:14px;color:#5d685b;text-decoration:none}.top a.back:hover{color:#17211a}
-.card{width:100%;max-width:400px;background:#fff;border:1px solid #dfe3d9;border-radius:16px;padding:28px;box-shadow:0 24px 48px -32px #17211a66}
-h1{font-size:26px;line-height:1.15;letter-spacing:-.03em;margin:0 0 6px}.sub{margin:0 0 22px;color:#5d685b;font-size:15px}
-label{display:block;font-size:14px;font-weight:600;margin-bottom:6px}input{width:100%;height:48px;padding:0 14px;font:inherit;font-size:16px;border:1px solid #c9cfc2;border-radius:10px;background:#fff;color:#17211a;transition:border-color .15s,box-shadow .15s}input:focus{outline:0;border-color:#44543c;box-shadow:0 0 0 3px #44543c33}
-button.go{width:100%;height:50px;margin-top:14px;border:0;border-radius:10px;background:#17211a;color:#fff;font:inherit;font-weight:650;font-size:16px;cursor:pointer;transition:background .15s,transform .1s}button.go:hover{background:#243127}button.go:active{transform:translateY(1px)}button.go:disabled{opacity:.65;cursor:progress}button.go:focus-visible,a:focus-visible,button.lnk:focus-visible{outline:2px solid #44543c;outline-offset:3px}
+.side h2{font-size:34px;line-height:1.1;letter-spacing:-.03em;margin:0 0 16px;max-width:12em}.side p{color:#a9b7c1;margin:0;max-width:26em}.side ul{list-style:none;padding:0;margin:32px 0 0;display:grid;gap:14px}.side li{display:flex;gap:10px;color:#cbd8e0;font-size:15px}.side li::before{content:"";flex:none;width:18px;height:18px;margin-top:2px;border-radius:50%;background:#a9cbe8 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2314212b' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5 9-10'/%3E%3C/svg%3E") center/12px no-repeat}
+.main{display:grid;align-content:center;justify-items:center;padding:24px 20px 40px;gap:28px}.top{width:100%;max-width:400px;display:flex;justify-content:space-between;align-items:center}.top .brand{font-size:17px}.top a.back{font-size:14px;color:#5b6872;text-decoration:none}.top a.back:hover{color:#14212b}
+.card{width:100%;max-width:400px;background:#fff;border:1px solid #d5dad9;border-radius:16px;padding:28px;box-shadow:0 24px 48px -32px #14212b66}
+h1{font-size:26px;line-height:1.15;letter-spacing:-.03em;margin:0 0 6px}.sub{margin:0 0 22px;color:#5b6872;font-size:15px}
+label{display:block;font-size:14px;font-weight:600;margin-bottom:6px}input{width:100%;height:48px;padding:0 14px;font:inherit;font-size:16px;border:1px solid #b4bdc0;border-radius:6px;background:#fff;color:#14212b;transition:border-color .15s,box-shadow .15s}input:focus{outline:0;border-color:#44543c;box-shadow:0 0 0 3px #44543c33}
+button.go{width:100%;height:50px;margin-top:14px;border:0;border-radius:6px;background:#14212b;color:#fff;font:inherit;font-weight:650;font-size:16px;cursor:pointer;transition:background .15s,transform .1s}button.go:hover{background:#1d4f7c}button.go:active{transform:translateY(1px)}button.go:disabled{opacity:.65;cursor:progress}button.go:focus-visible,a:focus-visible,button.lnk:focus-visible{outline:2px solid #44543c;outline-offset:3px}
 #m{min-height:22px;margin:12px 0 0;font-size:14px}#m.err{color:#944a38}#m a{font-weight:600}
-.alt{margin:20px 0 0;text-align:center;font-size:14px;color:#5d685b}.alt a{font-weight:650;color:#17211a}
-.ok{text-align:center;display:none}.ok .tick{width:52px;height:52px;border-radius:50%;background:#c4ec63;display:grid;place-items:center;margin:0 auto 16px}.ok p{color:#5d685b;font-size:15px;margin:6px 0 0}.ok b{color:#17211a;word-break:break-all}
-button.lnk{background:none;border:0;padding:6px;font:inherit;font-size:14px;font-weight:600;color:#17211a;text-decoration:underline;cursor:pointer}button.lnk:disabled{color:#8a9386;text-decoration:none;cursor:default}
-.fine{max-width:400px;text-align:center;font-size:12.5px;color:#5d685b;margin:0}
+.alt{margin:20px 0 0;text-align:center;font-size:14px;color:#5b6872}.alt a{font-weight:650;color:#14212b}
+.ok{text-align:center;display:none}.ok .tick{width:52px;height:52px;border-radius:50%;background:#a9cbe8;display:grid;place-items:center;margin:0 auto 16px}.ok p{color:#5b6872;font-size:15px;margin:6px 0 0}.ok b{color:#14212b;word-break:break-all}
+button.lnk{background:none;border:0;padding:6px;font:inherit;font-size:14px;font-weight:600;color:#14212b;text-decoration:underline;cursor:pointer}button.lnk:disabled{color:#8a959c;text-decoration:none;cursor:default}
+.fine{max-width:400px;text-align:center;font-size:12.5px;color:#5b6872;margin:0}
 @media (min-width:900px){.shell{grid-template-columns:minmax(380px,5fr) 6fr}.side{display:flex}.top .brand{display:none}.top{justify-content:flex-end}}`;
 
 type Mode = "login" | "register";
@@ -77,7 +77,7 @@ function authPage(mode: Mode, env: AuthEnv): Response {
 <aside class="side"><a class="brand" href="/">${MARK}<span>Schema</span></a>
 <div><h2>The autonomous project agent for commercial fit-outs.</h2><p>Brief and PDFs in. Reviewed handoff out. You approve every decision that matters.</p>
 <ul><li>Sign in with your email and password</li><li>Page-level evidence for every claim</li><li>Nothing leaves the workspace without your approval</li></ul></div>
-<p style="font-size:13px;color:#7d8a76;margin:0">Meta Global AI Developer Hackathon</p></aside>
+<p style="font-size:13px;color:#8a98a2;margin:0">Schema supports professionals and does not issue permits.</p></aside>
 <main class="main"><div class="top"><a class="brand" href="/">${MARK}<span>Schema</span></a><a class="back" href="/">← Back to site</a></div>
 <div class="card"><div id="form"><h1>${login ? "Welcome back" : "Create your account"}</h1>
 <p class="sub">${login ? "Enter your email and password to continue." : "Choose an email and a password (at least 8 characters)."}</p>
@@ -85,7 +85,7 @@ function authPage(mode: Mode, env: AuthEnv): Response {
 <label for="p" style="margin-top:14px">Password</label><input id="p" type="password" required placeholder="${login ? "Your password" : "At least 8 characters"}" autocomplete="${login ? "current-password" : "new-password"}">
 <button class="go" id="b" type="submit">${label}</button><p id="m" role="status" aria-live="polite"></p></form>
 <p class="alt">${login ? `New to Schema? <a href="/register" id="sw">Register</a>` : `Already have an account? <a href="/login" id="sw">Log in</a>`}</p></div>
-<div class="ok" id="ok" role="status"><div class="tick"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#17211a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></div>
+<div class="ok" id="ok" role="status"><div class="tick"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#14212b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></div>
 <h1>Check your email</h1><p>We sent a confirmation link to <b id="to"></b>. Open it, then log in.</p>
 <p style="margin-top:18px"><a class="lnk" href="/login">Go to log in</a></p></div></div>
 <p class="fine">By continuing you agree to use Schema for professional project coordination. Schema does not issue permits or provide legal or engineering sign-off.</p></main></div>`;
@@ -125,7 +125,7 @@ f.addEventListener('submit',ev=>{ev.preventDefault();if(!b.disabled)submit()});`
 }
 
 function html(title: string, body: string, script: string, status = 200): Response {
-  const doc = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#17211a"><meta name="robots" content="noindex"><title>${title}</title><link rel="icon" href="/icon.svg" type="image/svg+xml"><style>${CSS}</style></head><body>${body}<script>${script}</script></body></html>`;
+  const doc = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#14212b"><meta name="robots" content="noindex"><title>${title}</title><link rel="icon" href="/icon.svg" type="image/svg+xml"><style>${CSS}</style></head><body>${body}<script>${script}</script></body></html>`;
   return new Response(doc, { status, headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-store" } });
 }
 

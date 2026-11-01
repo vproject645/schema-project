@@ -1,39 +1,39 @@
 .office-concept { margin: 18px 0; min-width: 0; }
 .office-concept-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 0 16px; }
 .office-concept-toolbar>div:first-child { display: flex; flex-direction: column; gap: 4px; }
-.office-concept-toolbar strong { font-size: 13px; font-weight: 600; color: #374530; }
-.office-concept-toolbar span { font-size: 11px; color: #64705b; }
+.office-concept-toolbar strong { font-size: 13px; font-weight: 600; color: #313b44; }
+.office-concept-toolbar span { font-size: 11px; color: #5c666f; }
 .office-view-buttons { display: flex; flex-wrap: wrap; gap: 4px; }
-.office-view-buttons button { min-height: 38px; padding: 8px 10px; border: 1px solid transparent; border-radius: 5px; background: transparent; color: #5f6e54; font: inherit; font-size: 11px; cursor: pointer; }
-.office-view-buttons button:hover { background: #eef2e8; }
-.office-view-buttons button.active { background: #e8eede; color: #3e5730; border-color: #d0dcc3; }
-.office-concept-canvas { height: 360px; border: 1px solid #dce2d4; border-radius: 8px; background: #f6f7f1; overflow: hidden; }
+.office-view-buttons button { min-height: 38px; padding: 8px 10px; border: 1px solid transparent; border-radius: 5px; background: transparent; color: #55626d; font: inherit; font-size: 11px; cursor: pointer; }
+.office-view-buttons button:hover { background: #e8edf2; }
+.office-view-buttons button.active { background: #dee7ee; color: #314556; border-color: #c4d1db; }
+.office-concept-canvas { height: 360px; border: 1px solid #d4dce2; border-radius: 8px; background: #f1f4f7; overflow: hidden; }
 .office-plan { display: block; width: 100%; height: 100%; padding: 20px; }
 .office-plan-room { cursor: pointer; }
-.office-plan-room:focus-visible { outline: 2px solid #5d754c; outline-offset: 1px; }
-.office-plan-room:hover rect { stroke: #3b5730; }
+.office-plan-room:focus-visible { outline: 2px solid #4d6274; outline-offset: 1px; }
+.office-plan-room:hover rect { stroke: #314556; }
 .office-model { width: 100%; height: 100%; position: relative; }
 .office-model canvas { display: block; touch-action: none; }
 .office-model-error { padding: 32px; color: #7e5f35; font-size: 13px; line-height: 1.8; }
-.office-concept-caption { padding: 14px 0; font-size: 11px; line-height: 1.8; color: #647059; margin: 0; }
-.office-room-editor { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 14px 12px; padding: 20px 0; border-top: 1px solid #dfe5d6; }
-.office-room-editor label { display: flex; flex-direction: column; gap: 7px; font-size: 11px; color: #5d6e50; min-width: 0; }
+.office-concept-caption { padding: 14px 0; font-size: 11px; line-height: 1.8; color: #5a666f; margin: 0; }
+.office-room-editor { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 14px 12px; padding: 20px 0; border-top: 1px solid #d6dee5; }
+.office-room-editor label { display: flex; flex-direction: column; gap: 7px; font-size: 11px; color: #51606d; min-width: 0; }
 .office-room-editor label:first-child,.office-room-editor label:nth-child(2) { grid-column: span 2; }
-.office-room-editor input,.office-room-editor select { width: 100%; min-height: 42px; box-sizing: border-box; padding: 10px; border: 1px solid #cbd4c1; border-radius: 5px; background: #fff; font: inherit; font-size: 13px; color: #3f4d35; min-width: 0; }
-.office-room-editor button { grid-column: 1/-1; justify-self: end; padding: 10px 14px; min-height: 42px; border: 0; border-radius: 5px; background: #44543c; color: #fff; font: inherit; font-size: 12px; cursor: pointer; }
-.schema-agent-shell .office-room-editor button { background: #44543c; color: #fff; }
+.office-room-editor input,.office-room-editor select { width: 100%; min-height: 42px; box-sizing: border-box; padding: 10px; border: 1px solid #c1cbd4; border-radius: 5px; background: #fff; font: inherit; font-size: 13px; color: #36424c; min-width: 0; }
+.office-room-editor button { grid-column: 1/-1; justify-self: end; padding: 10px 14px; min-height: 42px; border: 0; border-radius: 5px; background: #3d4953; color: #fff; font: inherit; font-size: 12px; cursor: pointer; }
+.schema-agent-shell .office-room-editor button { background: #3d4953; color: #fff; }
 .schema-agent-shell .office-view-buttons button { border: 1px solid transparent; }
-.schema-agent-shell .office-view-buttons button.active { border-color: #d0dcc3; }
-.office-room-editor button:hover { background: #34482c; }
-.office-room-editor p { grid-column: 1/-1; color: #5c6e50; font-size: 12px; line-height: 1.8; }
+.schema-agent-shell .office-view-buttons button.active { border-color: #c4d1db; }
+.office-room-editor button:hover { background: #2d3b47; }
+.office-room-editor p { grid-column: 1/-1; color: #51606d; font-size: 12px; line-height: 1.8; }
 .office-concept-error { margin: 0; padding: 14px; color: #8b4030; background: #fbefea; font-size: 12px; line-height: 1.8; border-radius: 6px; }
-.office-concept-details { padding: 16px 0; border-top: 1px solid #dfe5d6; font-size: 12px; color: #5c6c51; }
-.office-concept-details summary { cursor: pointer; color: #496139; min-height: 30px; }
+.office-concept-details { padding: 16px 0; border-top: 1px solid #d6dee5; font-size: 12px; color: #52606b; }
+.office-concept-details summary { cursor: pointer; color: #3a4f60; min-height: 30px; }
 .office-concept-details ul { padding-left: 18px; margin: 14px 0; }
 .office-concept-details li { line-height: 1.8; margin-bottom: 12px; }
-.office-concept-details li strong { display: block; color: #496039; font-weight: 550; }
-.office-concept-details li span { display: block; color: #637057; font-size: 11px; }
-.office-concept-details h4 { font-size: 12px; color: #4e633e; margin: 18px 0 6px; }
+.office-concept-details li strong { display: block; color: #3a4e5f; font-weight: 550; }
+.office-concept-details li span { display: block; color: #58656f; font-size: 11px; }
+.office-concept-details h4 { font-size: 12px; color: #3f5262; margin: 18px 0 6px; }
 .office-concept-details p { line-height: 1.8; margin: 0; }
 @media (max-width: 600px) {
   .office-concept-toolbar { display: block; }

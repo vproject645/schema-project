@@ -56,9 +56,9 @@ export function Assistant({
         <h2>Planning assistant</h2>
         <div className="assistant-status">
           <i className={mode === "meta" && connected ? "live" : ""} />
-          {mode === "meta" ? "Meta connected" : "Local demonstration"}
+          {mode === "meta" ? "AI connected" : "Local demonstration"}
           <span>
-            · {mode === "meta" ? "Muse Spark 1.3" : "Meta disconnected"}
+            · {mode === "meta" ? "Schema AI" : "AI disconnected"}
           </span>
         </div>
         <div className="mode-picker">
@@ -73,7 +73,7 @@ export function Assistant({
             onClick={() => onMode("meta")}
           >
             <Sparkles size={12} />
-            Meta
+            AI
           </button>
         </div>
       </div>
@@ -113,7 +113,7 @@ export function Assistant({
             <div className="assistant-footnote">
               <span className="small-line" />
               <p>
-                Local mode runs a small set of fixed commands. Connect Meta for
+                Local mode runs a small set of fixed commands. Connect AI for
                 natural-language assistance.
               </p>
             </div>
@@ -125,7 +125,7 @@ export function Assistant({
                 {message.role === "user"
                   ? "You"
                   : message.mode === "meta"
-                    ? "Muse Spark"
+                    ? "Schema AI"
                     : "Local demonstration"}
               </div>
               <p>{message.text}</p>
@@ -183,7 +183,7 @@ export function Assistant({
           <div className="thinking">
             <LoaderCircle size={15} className="spin" />
             {mode === "meta"
-              ? "Meta is checking the design…"
+              ? "Schema is checking the design…"
               : "Checking the sample geometry…"}
           </div>
         )}
