@@ -93,6 +93,8 @@ export default function SitePage() {
   const markerRef = useRef<any>(null);
   const presetRef = useRef<Preset>('dusk');
   const viewRef = useRef<View>('twin');
+  const nextZoomRef = useRef<number | null>(null);
+  const skipFlyRef = useRef(false);
   const [token, setToken] = useState(BUILD_TOKEN);
   const [tokenDraft, setTokenDraft] = useState('');
   const [site, setSite] = useState(DEFAULT_SITE);
@@ -101,6 +103,7 @@ export default function SitePage() {
   const [preset, setPreset] = useState<Preset>('dusk');
   const [view, setView] = useState<View>('twin');
   const [autoQ, setAutoQ] = useState('');
+  const [locating, setLocating] = useState(false);
 
   // Read ?lat=..&lng=.. from the address bar.
   useEffect(() => {
@@ -135,7 +138,14 @@ export default function SitePage() {
       map.on('error', (e: any) => setStatus('Map error: ' + (e?.error?.message || 'unknown')));
       map.on('load', () => {
         applyLook(map, viewRef.current);
-        markerRef.current = new mapboxgl.Marker().setLngLat([site.lng, site.lat]).addTo(map);
+        const marker = new mapboxgl.Marker({ draggable: true }).setLngLat([site.lng, site.lat]).addTo(map);
+        marker.on('dragend', () => {
+          const { lng, lat } = marker.getLngLat();
+          skipFlyRef.current = true;
+          setSite({ lat, lng });
+          setStatus('Pin moved to this spot.');
+        });
+        markerRef.current = marker;
       });
     }).catch((e: Error) => setStatus(e.message));
     return () => { cancelled = true; mapRef.current?.remove(); mapRef.current = null; markerRef.current = null; };
@@ -145,8 +155,11 @@ export default function SitePage() {
 
   // Fly to a new site.
   useEffect(() => {
-    mapRef.current?.flyTo({ center: [site.lng, site.lat], zoom: 15.2, pitch: 55, duration: 2500 });
     markerRef.current?.setLngLat([site.lng, site.lat]);
+    if (skipFlyRef.current) { skipFlyRef.current = false; return; }
+    const zoom = nextZoomRef.current ?? 15.2;
+    nextZoomRef.current = null;
+    mapRef.current?.flyTo({ center: [site.lng, site.lat], zoom, pitch: 55, duration: 2500 });
   }, [site]);
 
   // Change the lighting (dawn / day / dusk / night). 3D city view only.
@@ -170,6 +183,31 @@ export default function SitePage() {
       map.setStyle(STYLES[v]);
       map.once('style.load', () => applyLook(map, v));
     }
+  }
+
+  // Fly to where the person is standing and drop the pin there. They can drag the pin to adjust.
+  function useMyLocation() {
+    if (!('geolocation' in navigator)) { setStatus('This browser cannot share your location.'); return; }
+    setLocating(true);
+    setStatus('Finding your location…');
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const { latitude, longitude, accuracy } = pos.coords;
+        nextZoomRef.current = accuracy > 100 ? 16.5 : 18.3;
+        setSite({ lat: latitude, lng: longitude });
+        setStatus(`You are here (accurate to about ${Math.round(accuracy)} m). Drag the pin to fine-tune the building location.`);
+        setLocating(false);
+      },
+      (err) => {
+        setLocating(false);
+        setStatus(err.code === err.PERMISSION_DENIED
+          ? 'Location is blocked. Allow location for this site in your browser settings, then try again.'
+          : err.code === err.TIMEOUT
+            ? 'Finding your location took too long. Move to an open area and try again.'
+            : 'Your location is not available right now.');
+      },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 },
+    );
   }
 
   function search(event: React.FormEvent) { event.preventDefault(); void runSearch(query); }
@@ -210,6 +248,9 @@ export default function SitePage() {
             <input style={box} value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search any address or city" />
             <button style={{ ...box, width: 110, background: '#283229', color: '#fff' }}>Go</button>
           </form>
+          <button type="button" onClick={useMyLocation} disabled={locating} style={{ ...box, marginBottom: 8, background: '#1d4f7c', color: '#fff', border: '1px solid #1d4f7c', fontWeight: 600, opacity: locating ? 0.7 : 1 }}>
+            {locating ? 'Finding your location…' : 'Use my location'}
+          </button>
           <div style={{ display: 'flex', gap: 8, marginBottom: 8, flexWrap: 'wrap' }}>
             {(['twin', 'city', 'satellite'] as View[]).map((v) => <button key={v} type="button" style={chip(view === v)} onClick={() => chooseView(v)}>{viewLabel[v]}</button>)}
           </div>
@@ -221,7 +262,7 @@ export default function SitePage() {
           <p style={{ minHeight: 22, margin: '0 0 8px', fontSize: 14 }}>{status || `${site.lat.toFixed(5)}, ${site.lng.toFixed(5)}`}</p>
           <p style={{ margin: '0 0 8px', fontSize: 14 }}><a href={`/simulate?lat=${site.lat}&lng=${site.lng}`}>Climate and durability estimate for this site →</a></p>
           <div ref={container} style={{ width: '100%', height: '65vh', minHeight: 340, borderRadius: 12, overflow: 'hidden', border: '1px solid #c9cfc4' }} />
-          <p style={{ fontSize: 13, color: '#5d6b5e' }}>Drag to pan, two fingers to tilt and rotate. Imagery is a visual aid only, not survey data.</p>
+          <p style={{ fontSize: 13, color: '#5d6b5e' }}>Drag the pin to adjust the site. Drag the map to pan, two fingers to tilt and rotate. Imagery is a visual aid only, not survey data.</p>
         </>
       )}
     </main>
