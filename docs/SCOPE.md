@@ -28,3 +28,7 @@ Professionally prepared drawings, code interpretation, legal occupancy, city fil
 Email is optional. A tested mail-service interface enforces exact-content approval and provider receipts, but a live native Gmail adapter, eligibility and consent are not established. The core workflow must work without mail delivery.
 
 All included cases are fictional. Real permitting value and time savings remain hypotheses until a practitioner evaluates authorized historical cases.
+
+## Studio (`/studio`)
+
+Studio adds a separate, client-side idea-to-permit flow. Its durability model is a comparative screening estimate, its code and permit results are likely-applicable lists marked for verification, and its permit package is a preparation aid with no automated filing. See [Studio](STUDIO.md). This does not change the claims above about the agent workspace.

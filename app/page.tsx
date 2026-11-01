@@ -6,6 +6,7 @@ import './landing.css';
 const SOURCE = 'https://github.com/RAWCoder123/groundwork-meta-hackathon';
 
 const nav = [
+  { href: '/studio', label: 'Studio' },
   { href: '#product', label: 'Product' },
   { href: '#how', label: 'How it works' },
   { href: '#trust', label: 'Trust & control' },
@@ -61,6 +62,7 @@ export default function LandingPage() {
               <summary aria-label="Open menu"><Menu size={20} /></summary>
               <div className="lp-menu-panel">
                 {nav.map((l) => <a key={l.href} href={l.href}>{l.label}</a>)}
+                <a href="/studio">Studio</a>
                 <a href="/legacy">Legacy permit desk</a>
               </div>
             </details>

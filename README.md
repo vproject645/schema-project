@@ -65,6 +65,7 @@ Build output is ignored. It includes a Vinext Worker, browser assets and append-
 | `/` | Public landing page with Log in and Register in the header |
 | `/login`, `/register` | Passwordless email-link sign-in and account creation (Supabase) |
 | `/app` | The agent workspace. Requires a verified session when Supabase is configured |
+| `/studio` | Idea to 3D model, climate time-lapse, codes and permit package. See [Studio](docs/STUDIO.md) |
 | `/legacy` | Earlier manual permit desk and residential study |
 
 Set `SUPABASE_URL` and `SUPABASE_ANON_KEY` as Worker secrets, and add `https://<your-domain>/auth/callback` to the Supabase Auth redirect URLs. Without them, `/login` and `/register` show a "not set up" page in production and fall back to the local mock sign-in in development.
@@ -75,6 +76,7 @@ Set `SUPABASE_URL` and `SUPABASE_ANON_KEY` as Worker secrets, and add `https://<
 | --- | --- |
 | `app/page.tsx`, `app/landing.css` | Public landing page |
 | `worker/supabase-auth.ts` | Login, register, callback, session cookie and `/app` gating |
+| `src/studio/`, `src/components/StudioApp.tsx`, `StudioScene.tsx` | Studio logic, five-step UI and the 3D weathering scene |
 | `src/components/AgentWorkspace.tsx` | Conversation, proposal, decisions, intake and preferences |
 | `src/components/OfficeConceptView.tsx` | Linked floor plan, 3D and room editing |
 | `src/autonomy/corrections.ts` | Authoritative comments, immutable page evidence, review fingerprints and coverage |
