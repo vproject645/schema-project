@@ -1,6 +1,5 @@
 name: Unpack zip
-on:
-  workflow_dispatch:
+on: workflow_dispatch
 permissions:
   contents: write
 jobs:
@@ -8,14 +7,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Unpack
-        run: |
-          unzip -o schema-patched.zip
-          rm schema-patched.zip
-      - name: Commit
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@users.noreply.github.com"
+      - run: |
+          unzip -o ./*.zip
+          rm ./*.zip
+          rm -rf schema-project-main/.github
+          cp -a schema-project-main/. .
+          rm -rf schema-project-main
+          git config user.name github-actions
+          git config user.email github-actions@users.noreply.github.com
           git add -A
-          git commit -m "Unpack Schema project"
+          git diff --cached --quiet || git commit -m "Unpack zip"
           git push
