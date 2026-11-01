@@ -72,47 +72,55 @@ type Mode = "login" | "register";
 function authPage(mode: Mode, env: AuthEnv): Response {
   const login = mode === "login";
   const title = login ? "Log in to Schema" : "Create your Schema account";
+  const label = login ? "Log in" : "Create account";
   const body = `<div class="shell">
 <aside class="side"><a class="brand" href="/">${MARK}<span>Schema</span></a>
 <div><h2>The autonomous project agent for commercial fit-outs.</h2><p>Brief and PDFs in. Reviewed handoff out. You approve every decision that matters.</p>
-<ul><li>Passwordless: sign in with an email link</li><li>Page-level evidence for every claim</li><li>Nothing leaves the workspace without your approval</li></ul></div>
+<ul><li>Sign in with your email and password</li><li>Page-level evidence for every claim</li><li>Nothing leaves the workspace without your approval</li></ul></div>
 <p style="font-size:13px;color:#7d8a76;margin:0">Meta Global AI Developer Hackathon</p></aside>
 <main class="main"><div class="top"><a class="brand" href="/">${MARK}<span>Schema</span></a><a class="back" href="/">← Back to site</a></div>
 <div class="card"><div id="form"><h1>${login ? "Welcome back" : "Create your account"}</h1>
-<p class="sub">${login ? "Enter your email and we’ll send you a secure sign-in link." : "Enter your email. We’ll send a link that creates your account. No password needed."}</p>
+<p class="sub">${login ? "Enter your email and password to continue." : "Choose an email and a password (at least 8 characters)."}</p>
 <form id="f" novalidate><label for="e">Email address</label><input id="e" type="email" required placeholder="you@company.com" autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false" autofocus>
-<button class="go" id="b" type="submit">${login ? "Email me a sign-in link" : "Create account"}</button><p id="m" role="status" aria-live="polite"></p></form>
+<label for="p" style="margin-top:14px">Password</label><input id="p" type="password" required placeholder="${login ? "Your password" : "At least 8 characters"}" autocomplete="${login ? "current-password" : "new-password"}">
+<button class="go" id="b" type="submit">${label}</button><p id="m" role="status" aria-live="polite"></p></form>
 <p class="alt">${login ? `New to Schema? <a href="/register" id="sw">Register</a>` : `Already have an account? <a href="/login" id="sw">Log in</a>`}</p></div>
 <div class="ok" id="ok" role="status"><div class="tick"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#17211a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></div>
-<h1>Check your email</h1><p>We sent a link to <b id="to"></b>. Open it on this device to continue.</p>
-<p style="margin-top:18px"><button class="lnk" id="re" type="button" disabled></button> · <button class="lnk" id="ch" type="button">Use a different email</button></p></div></div>
+<h1>Check your email</h1><p>We sent a confirmation link to <b id="to"></b>. Open it, then log in.</p>
+<p style="margin-top:18px"><a class="lnk" href="/login">Go to log in</a></p></div></div>
 <p class="fine">By continuing you agree to use Schema for professional project coordination. Schema does not issue permits or provide legal or engineering sign-off.</p></main></div>`;
-  const script = `const SB=${esc(base(env))},KEY=${esc(env.SUPABASE_ANON_KEY!.trim())},LOGIN=${login ? "true" : "false"};
-const $=id=>document.getElementById(id),f=$('f'),e=$('e'),b=$('b'),m=$('m');
+  const script = `const SB=${esc(base(env))},KEY=${esc(env.SUPABASE_ANON_KEY!.trim())},LOGIN=${login ? "true" : "false"},LABEL=${esc(label)};
+const $=id=>document.getElementById(id),f=$('f'),e=$('e'),p=$('p'),b=$('b'),m=$('m');
 const safe=v=>typeof v==='string'&&v[0]==='/'&&v[1]!=='/'&&v[1]!=='\\\\'?v:'/app';
 const nx=new URLSearchParams(location.search).get('next');
-try{if(nx)localStorage.setItem('schema.next',safe(nx))}catch(_){}
 if(nx)$('sw').href+='?next='+encodeURIComponent(safe(nx));
-let timer=0;
-function cooldown(){let n=30;const r=$('re');r.disabled=true;clearInterval(timer);const tick=()=>{r.textContent=n>0?'Resend in '+n+'s':'Resend link';if(n<=0){r.disabled=false;clearInterval(timer)}n--};tick();timer=setInterval(tick,1000)}
-async function send(){
-  const email=e.value.trim();
-  if(!/^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/.test(email)){m.className='err';m.textContent='Enter a valid email address.';e.focus();return false}
-  b.disabled=true;b.textContent='Sending…';m.className='';m.textContent='';
+function fail(t){m.className='err';m.textContent=t;b.disabled=false;b.textContent=LABEL}
+async function finish(d){
+  const r=await fetch('/auth/session',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({access_token:d.access_token,expires_in:d.expires_in||3600})});
+  if(r.ok){location.replace(nx?safe(nx):'/app');return}
+  fail(r.status===403?'This email is not allowed on this workspace.':'Sign-in failed. Please try again.')
+}
+async function submit(){
+  const email=e.value.trim(),pw=p.value;
+  if(email.indexOf('@')<1||email.indexOf('.',email.indexOf('@'))<0){fail('Enter a valid email address.');e.focus();return}
+  if(pw.length<8){fail(LOGIN?'Enter your password.':'Password must be at least 8 characters.');p.focus();return}
+  b.disabled=true;b.textContent='Please wait…';m.className='';m.textContent='';
   try{
-    const r=await fetch(SB+'/auth/v1/otp?redirect_to='+encodeURIComponent(location.origin+'/auth/callback'),{method:'POST',headers:{apikey:KEY,'content-type':'application/json'},body:JSON.stringify({email:email,create_user:!LOGIN})});
-    if(r.ok){$('to').textContent=email;$('form').style.display='none';$('ok').style.display='block';cooldown();return true}
+    const url=LOGIN?SB+'/auth/v1/token?grant_type=password':SB+'/auth/v1/signup';
+    const r=await fetch(url,{method:'POST',headers:{apikey:KEY,'content-type':'application/json'},body:JSON.stringify({email:email,password:pw})});
     let d={};try{d=await r.json()}catch(_){}
+    if(r.ok&&d.access_token){await finish(d);return}
+    if(r.ok&&!LOGIN){$('to').textContent=email;$('form').style.display='none';$('ok').style.display='block';return}
     const txt=JSON.stringify(d).toLowerCase();
-    m.className='err';
-    if(r.status===429)m.textContent='Too many attempts. Please wait a minute and try again.';
-    else if(LOGIN&&/signup|otp_disabled|not found/.test(txt)){m.innerHTML='No account found for that email. <a href="/register">Register instead</a>.'}
-    else m.textContent='We could not send the link. Check the email address and try again.';
-  }catch(_){m.className='err';m.textContent='Network error. Check your connection and try again.'}
-  b.disabled=false;b.textContent=${esc(login ? "Email me a sign-in link" : "Create account")};return false}
-f.addEventListener('submit',ev=>{ev.preventDefault();if(!b.disabled)send()});
-$('re').addEventListener('click',()=>send().then(()=>{}));
-$('ch').addEventListener('click',()=>{clearInterval(timer);$('ok').style.display='none';$('form').style.display='block';b.disabled=false;b.textContent=${esc(login ? "Email me a sign-in link" : "Create account")};e.focus();e.select()});`;
+    if(r.status===429||txt.indexOf('rate')>=0)fail('Too many attempts. Please wait a minute and try again.');
+    else if(LOGIN&&txt.indexOf('not confirmed')>=0)fail('Please confirm your email first, then log in.');
+    else if(LOGIN)fail('Wrong email or password.');
+    else if(txt.indexOf('already')>=0)m.innerHTML='That email is already registered. <a href="/login">Log in instead</a>.',m.className='err',b.disabled=false,b.textContent=LABEL;
+    else if(txt.indexOf('weak')>=0||txt.indexOf('password')>=0)fail('Choose a stronger password (at least 8 characters).');
+    else fail('Could not complete that. Check your details and try again.');
+  }catch(_){fail('Network error. Check your connection and try again.')}
+}
+f.addEventListener('submit',ev=>{ev.preventDefault();if(!b.disabled)submit()});`;
   return html(title, body, script);
 }
 
