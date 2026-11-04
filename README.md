@@ -39,6 +39,7 @@ The first measurable workflow is responding to city review comments on an existi
 - R2 originals and complete page-text records. Intake supports eight text-bearing PDFs of at most 10 MB and 50 pages each. Unread or scanned pages stay visible.
 - A single concept model drives the floor plan and Three.js cutaway, with geometry checks for boundaries and non-overlap.
 - Document inputs, search grounding and validated tools, with saved response IDs and checkpoints for resumable work.
+- Missing-information tracker: each open question from the understanding stage gets a status (open, requested, received), an owner (client, architect, engineer) and an optional link to an uploaded file. Updating it sends nothing.
 - Editable preference records with decision provenance and deletion. This is application memory, not model retraining.
 - Exact-content email approval, provider receipts and uncertain-outcome reconciliation.
 - Restricted private MCP batch runner and an hourly cloud check. It cannot approve a decision, send a message or submit a permit.
