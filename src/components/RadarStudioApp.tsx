@@ -147,31 +147,31 @@ export function RadarStudioApp() {
   };
 
   return (
-    <div className="radar-page-shell" style={{ minHeight: '100vh', background: '#f5f6f4', color: '#14212b', fontFamily: '"IBM Plex Sans", Inter, sans-serif' }}>
+    <div className="radar-page-shell" style={{ minHeight: '100vh', background: '#f3f4ef', color: '#29342c', fontFamily: 'Inter, sans-serif' }}>
       {/* Top Header */}
-      <header style={{ borderBottom: '1px solid #d5dad9', background: '#fff', padding: '0 24px', height: 56, display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 40 }}>
+      <header style={{ borderBottom: '1px solid #dfe3d9', background: '#fff', padding: '0 24px', height: 56, display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 40 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-          <a href="/" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none', color: '#14212b', fontWeight: 600, fontSize: 18 }}>
+          <a href="/" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none', color: '#29342c', fontWeight: 600, fontSize: 18 }}>
             <SchemaMark size={24} />
             <span>Schema</span>
           </a>
-          <span style={{ height: 18, width: 1, background: '#d5dad9' }} />
-          <span style={{ fontSize: 13, color: '#5b6872', fontWeight: 500 }}>
+          <span style={{ height: 18, width: 1, background: '#dfe3d9' }} />
+          <span style={{ fontSize: 13, color: '#66705f', fontWeight: 500 }}>
             Subsurface Radar & Disaster Prediction AI
           </span>
         </div>
 
         <nav style={{ display: 'flex', alignItems: 'center', gap: 16, fontSize: 14 }}>
-          <a href="/app" style={{ color: '#5b6872', textDecoration: 'none', fontWeight: 500 }}>Workspace</a>
-          <a href="/studio" style={{ color: '#5b6872', textDecoration: 'none', fontWeight: 500 }}>Studio 3D</a>
-          <a href="/contractor" style={{ color: '#5b6872', textDecoration: 'none', fontWeight: 500 }}>Contractor Hub</a>
-          <a href="/site" style={{ color: '#5b6872', textDecoration: 'none', fontWeight: 500 }}>Site View</a>
-          <a href="/simulate" style={{ color: '#5b6872', textDecoration: 'none', fontWeight: 500 }}>Climate</a>
+          <a href="/app" style={{ color: '#66705f', textDecoration: 'none', fontWeight: 500 }}>Workspace</a>
+          <a href="/studio" style={{ color: '#66705f', textDecoration: 'none', fontWeight: 500 }}>Studio 3D</a>
+          <a href="/contractor" style={{ color: '#66705f', textDecoration: 'none', fontWeight: 500 }}>Contractor Hub</a>
+          <a href="/site" style={{ color: '#66705f', textDecoration: 'none', fontWeight: 500 }}>Site View</a>
+          <a href="/simulate" style={{ color: '#66705f', textDecoration: 'none', fontWeight: 500 }}>Climate</a>
           <a
             href="/app"
             style={{
               padding: '6px 14px',
-              background: '#14212b',
+              background: '#29342c',
               color: '#fff',
               borderRadius: 6,
               textDecoration: 'none',
@@ -185,15 +185,15 @@ export function RadarStudioApp() {
       </header>
 
       {/* Hero Banner */}
-      <div style={{ background: '#14212b', color: '#fff', padding: '24px 24px 28px' }}>
+      <div style={{ background: '#29342c', color: '#fff', padding: '24px 24px 28px' }}>
         <div style={{ maxWidth: 1180, margin: '0 auto' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: '#1d4f7c', padding: '3px 10px', borderRadius: 999, fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 10 }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: '#44543c', padding: '3px 10px', borderRadius: 999, fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 10 }}>
             <Radio size={12} /> Low-Frequency GPR (10–50 MHz) · Edge DAQ · AI Inversion
           </div>
           <h1 style={{ margin: '0 0 8px', fontSize: 28, fontWeight: 700, letterSpacing: '-0.02em' }}>
             Penetrative Radar & Subsurface Disaster Prediction
           </h1>
-          <p style={{ margin: 0, maxWidth: 840, fontSize: 15, color: '#a0afbb', lineHeight: 1.5 }}>
+          <p style={{ margin: 0, maxWidth: 840, fontSize: 15, color: '#a3ad98', lineHeight: 1.5 }}>
             Scans internal structural integrity and deep subterranean strata (up to 35m) using penetrative RF radar waves.
             Coupled with an Edge DAQ unit (NVIDIA Jetson / RPi 5) and MEMS tilt sensor clusters to detect foundation voids,
             soil shear shifts, and seismic vulnerability before construction or commercial fit-out.
@@ -207,9 +207,9 @@ export function RadarStudioApp() {
       {/* Main Workspace Container */}
       <main style={{ maxWidth: 1180, margin: '20px auto', padding: '0 16px' }}>
         {/* Preset Selector & Controls Bar */}
-        <div style={{ background: '#fff', border: '1px solid #d5dad9', borderRadius: 12, padding: 16, marginBottom: 18, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 14 }}>
+        <div style={{ background: '#fff', border: '1px solid #dfe3d9', borderRadius: 12, padding: 16, marginBottom: 18, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 14 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-            <span style={{ fontSize: 13, fontWeight: 600, color: '#14212b' }}>Site Context:</span>
+            <span style={{ fontSize: 13, fontWeight: 600, color: '#29342c' }}>Site Context:</span>
             {RADAR_PRESETS.map((p) => (
               <button
                 key={p.id}
@@ -217,9 +217,9 @@ export function RadarStudioApp() {
                 style={{
                   padding: '7px 12px',
                   borderRadius: 6,
-                  border: `1px solid ${selectedPresetId === p.id ? '#14212b' : '#c9cfc4'}`,
-                  background: selectedPresetId === p.id ? '#14212b' : '#fff',
-                  color: selectedPresetId === p.id ? '#fff' : '#14212b',
+                  border: `1px solid ${selectedPresetId === p.id ? '#29342c' : '#c9cfc4'}`,
+                  background: selectedPresetId === p.id ? '#29342c' : '#fff',
+                  color: selectedPresetId === p.id ? '#fff' : '#29342c',
                   fontSize: 13,
                   fontWeight: selectedPresetId === p.id ? 600 : 400,
                   cursor: 'pointer',
@@ -241,7 +241,7 @@ export function RadarStudioApp() {
                 borderRadius: 6,
                 border: '1px solid #c9cfc4',
                 background: liveStreamActive ? '#e8f5e9' : '#fff',
-                color: liveStreamActive ? '#2e7d32' : '#5b6872',
+                color: liveStreamActive ? '#2e7d32' : '#66705f',
                 fontSize: 13,
                 fontWeight: 600,
                 cursor: 'pointer',
@@ -261,7 +261,7 @@ export function RadarStudioApp() {
                 padding: '7px 16px',
                 borderRadius: 6,
                 border: 0,
-                background: '#1d4f7c',
+                background: '#44543c',
                 color: '#fff',
                 fontSize: 13,
                 fontWeight: 600,
@@ -282,7 +282,7 @@ export function RadarStudioApp() {
                 borderRadius: 6,
                 border: '1px solid #c9cfc4',
                 background: '#fff',
-                color: '#14212b',
+                color: '#29342c',
                 fontSize: 13,
                 fontWeight: 500,
                 cursor: 'pointer',
@@ -295,13 +295,13 @@ export function RadarStudioApp() {
         </div>
 
         {/* Real-time Hardware & Edge DAQ Telemetry Strip */}
-        <div style={{ background: '#eaf1f7', border: '1px solid #d3e0ec', borderRadius: 8, padding: '10px 16px', marginBottom: 18, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12, fontSize: 13 }}>
+        <div style={{ background: '#e9eee1', border: '1px solid #d9dfd1', borderRadius: 8, padding: '10px 16px', marginBottom: 18, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12, fontSize: 13 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <Cpu size={16} color="#1d4f7c" />
+            <Cpu size={16} color="#44543c" />
             <span><b>Edge Gateway:</b> {edgeDaq.deviceType}</span>
-            <span style={{ color: '#8a98a2' }}>|</span>
+            <span style={{ color: '#8a9482' }}>|</span>
             <span><b>Transceiver:</b> {edgeDaq.frequencyMHz} MHz ({edgeDaq.txPowerWatts}W Peak)</span>
-            <span style={{ color: '#8a98a2' }}>|</span>
+            <span style={{ color: '#8a9482' }}>|</span>
             <span><b>Sampling:</b> {edgeDaq.sampleRateKhz} kHz (PRF {edgeDaq.pulseRateKhz} kHz)</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -309,44 +309,44 @@ export function RadarStudioApp() {
               <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#2e7d32' }} />
               {edgeDaq.cellularUplink} ({edgeDaq.latencyMs}ms)
             </span>
-            <span style={{ color: '#5b6872' }}>Battery: {edgeDaq.batteryPercent}%</span>
+            <span style={{ color: '#66705f' }}>Battery: {edgeDaq.batteryPercent}%</span>
           </div>
         </div>
 
         {/* Foundation Health & Disaster Prediction Scorecard */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', gap: 14, marginBottom: 20 }}>
-          <div style={{ background: '#fff', border: '1px solid #d5dad9', borderRadius: 10, padding: 16 }}>
-            <div style={{ fontSize: 12, color: '#5b6872', fontWeight: 600, textTransform: 'uppercase' }}>
+          <div style={{ background: '#fff', border: '1px solid #dfe3d9', borderRadius: 10, padding: 16 }}>
+            <div style={{ fontSize: 12, color: '#66705f', fontWeight: 600, textTransform: 'uppercase' }}>
               Foundation Integrity
             </div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginTop: 4 }}>
-              <span style={{ fontSize: 32, fontWeight: 700, color: analysis.integrityScore < 70 ? '#c62828' : '#14212b' }}>
+              <span style={{ fontSize: 32, fontWeight: 700, color: analysis.integrityScore < 70 ? '#c62828' : '#29342c' }}>
                 {analysis.integrityScore}
               </span>
-              <span style={{ fontSize: 14, color: '#5b6872' }}>/ 100</span>
+              <span style={{ fontSize: 14, color: '#66705f' }}>/ 100</span>
             </div>
             <div style={{ fontSize: 12, fontWeight: 600, color: analysis.stabilityGrade === 'Caution' ? '#ef6c00' : '#2e7d32', marginTop: 4 }}>
               Grade: {analysis.stabilityGrade}
             </div>
           </div>
 
-          <div style={{ background: '#fff', border: '1px solid #d5dad9', borderRadius: 10, padding: 16 }}>
-            <div style={{ fontSize: 12, color: '#5b6872', fontWeight: 600, textTransform: 'uppercase' }}>
+          <div style={{ background: '#fff', border: '1px solid #dfe3d9', borderRadius: 10, padding: 16 }}>
+            <div style={{ fontSize: 12, color: '#66705f', fontWeight: 600, textTransform: 'uppercase' }}>
               Soil Bearing Capacity
             </div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginTop: 4 }}>
-              <span style={{ fontSize: 32, fontWeight: 700, color: '#14212b' }}>
+              <span style={{ fontSize: 32, fontWeight: 700, color: '#29342c' }}>
                 {analysis.bearingCapacityKPa}
               </span>
-              <span style={{ fontSize: 14, color: '#5b6872' }}>kPa</span>
+              <span style={{ fontSize: 14, color: '#66705f' }}>kPa</span>
             </div>
-            <div style={{ fontSize: 12, color: '#5b6872', marginTop: 4 }}>
+            <div style={{ fontSize: 12, color: '#66705f', marginTop: 4 }}>
               Safe footing load limit
             </div>
           </div>
 
-          <div style={{ background: '#fff', border: '1px solid #d5dad9', borderRadius: 10, padding: 16 }}>
-            <div style={{ fontSize: 12, color: '#5b6872', fontWeight: 600, textTransform: 'uppercase' }}>
+          <div style={{ background: '#fff', border: '1px solid #dfe3d9', borderRadius: 10, padding: 16 }}>
+            <div style={{ fontSize: 12, color: '#66705f', fontWeight: 600, textTransform: 'uppercase' }}>
               Void Collapse Hazard
             </div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginTop: 4 }}>
@@ -354,21 +354,21 @@ export function RadarStudioApp() {
                 {analysis.voidCollapseRiskPercent}%
               </span>
             </div>
-            <div style={{ fontSize: 12, color: analysis.voidCollapseRiskPercent > 50 ? '#c62828' : '#5b6872', fontWeight: 500, marginTop: 4 }}>
+            <div style={{ fontSize: 12, color: analysis.voidCollapseRiskPercent > 50 ? '#c62828' : '#66705f', fontWeight: 500, marginTop: 4 }}>
               High cavity risk at 2.8m
             </div>
           </div>
 
-          <div style={{ background: '#fff', border: '1px solid #d5dad9', borderRadius: 10, padding: 16 }}>
-            <div style={{ fontSize: 12, color: '#5b6872', fontWeight: 600, textTransform: 'uppercase' }}>
+          <div style={{ background: '#fff', border: '1px solid #dfe3d9', borderRadius: 10, padding: 16 }}>
+            <div style={{ fontSize: 12, color: '#66705f', fontWeight: 600, textTransform: 'uppercase' }}>
               Seismic Amp. Factor
             </div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginTop: 4 }}>
-              <span style={{ fontSize: 32, fontWeight: 700, color: '#14212b' }}>
+              <span style={{ fontSize: 32, fontWeight: 700, color: '#29342c' }}>
                 {analysis.seismicAmplificationFactor}×
               </span>
             </div>
-            <div style={{ fontSize: 12, color: '#5b6872', marginTop: 4 }}>
+            <div style={{ fontSize: 12, color: '#66705f', marginTop: 4 }}>
               Bedrock shear boundary
             </div>
           </div>
@@ -386,15 +386,15 @@ export function RadarStudioApp() {
         <TiltSensorClusterView sensors={sensors} />
 
         {/* Detected Subsurface Anomalies & Inversion Insights */}
-        <div style={{ background: '#fff', border: '1px solid #d5dad9', borderRadius: 12, padding: 18, marginBottom: 20 }}>
+        <div style={{ background: '#fff', border: '1px solid #dfe3d9', borderRadius: 12, padding: 18, marginBottom: 20 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
             <div>
               <h3 style={{ margin: 0, fontSize: 16, fontWeight: 600 }}>AI Inversion Anomaly Register</h3>
-              <p style={{ margin: '2px 0 0', fontSize: 13, color: '#5b6872' }}>
+              <p style={{ margin: '2px 0 0', fontSize: 13, color: '#66705f' }}>
                 Automated hyperbolic wave migration & dielectric contrast classification
               </p>
             </div>
-            <span style={{ fontSize: 13, color: '#5b6872' }}>
+            <span style={{ fontSize: 13, color: '#66705f' }}>
               {analysis.anomalies.length} Anomaly Signatures Detected
             </span>
           </div>
@@ -405,8 +405,8 @@ export function RadarStudioApp() {
                 key={anom.id}
                 onClick={() => setSelectedAnomalyId(anom.id)}
                 style={{
-                  border: `1px solid ${selectedAnomalyId === anom.id ? '#14212b' : '#e0e0e0'}`,
-                  background: selectedAnomalyId === anom.id ? '#f7f9fa' : '#fff',
+                  border: `1px solid ${selectedAnomalyId === anom.id ? '#29342c' : '#e0e0e0'}`,
+                  background: selectedAnomalyId === anom.id ? '#f6f8f1' : '#fff',
                   borderRadius: 8,
                   padding: 14,
                   cursor: 'pointer',
@@ -423,19 +423,19 @@ export function RadarStudioApp() {
                           fontSize: 11,
                           fontWeight: 700,
                           textTransform: 'uppercase',
-                          background: anom.severity === 'critical' ? '#ffebee' : anom.severity === 'high' ? '#fff3e0' : '#e3f2fd',
-                          color: anom.severity === 'critical' ? '#c62828' : anom.severity === 'high' ? '#ef6c00' : '#1565c0',
+                          background: anom.severity === 'critical' ? '#ffebee' : anom.severity === 'high' ? '#fff3e0' : '#e9eee1',
+                          color: anom.severity === 'critical' ? '#c62828' : anom.severity === 'high' ? '#ef6c00' : '#44543c',
                         }}
                       >
                         {anom.severity}
                       </span>
-                      <strong style={{ fontSize: 15, color: '#14212b' }}>{anom.title}</strong>
-                      <span style={{ fontSize: 12, color: '#5b6872' }}>({anom.id})</span>
+                      <strong style={{ fontSize: 15, color: '#29342c' }}>{anom.title}</strong>
+                      <span style={{ fontSize: 12, color: '#66705f' }}>({anom.id})</span>
                     </div>
                     <p style={{ margin: '6px 0 8px', fontSize: 13, color: '#29342c' }}>
                       {anom.description}
                     </p>
-                    <div style={{ display: 'flex', gap: 16, fontSize: 12, color: '#5b6872', flexWrap: 'wrap' }}>
+                    <div style={{ display: 'flex', gap: 16, fontSize: 12, color: '#66705f', flexWrap: 'wrap' }}>
                       <span>Location: <b>Transect {anom.transectMeters}m</b></span>
                       <span>Depth: <b>{anom.depthMeters}m</b></span>
                       <span>Lateral Span: <b>{anom.extentMeters}m</b></span>
@@ -444,7 +444,7 @@ export function RadarStudioApp() {
                   </div>
                 </div>
 
-                <div style={{ marginTop: 10, background: '#f8faf9', borderLeft: '3px solid #1d4f7c', padding: '6px 12px', fontSize: 12.5, color: '#14212b' }}>
+                <div style={{ marginTop: 10, background: '#f6f8f1', borderLeft: '3px solid #44543c', padding: '6px 12px', fontSize: 12.5, color: '#29342c' }}>
                   <strong>Contractor Mitigation:</strong> {anom.recommendedMitigation}
                 </div>
               </div>
@@ -453,12 +453,12 @@ export function RadarStudioApp() {
         </div>
 
         {/* General Contractor Field Action Plan */}
-        <div style={{ background: '#fff', border: '1px solid #d5dad9', borderRadius: 12, padding: 18, marginBottom: 30 }}>
+        <div style={{ background: '#fff', border: '1px solid #dfe3d9', borderRadius: 12, padding: 18, marginBottom: 30 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-            <HardHat size={20} color="#1d4f7c" />
+            <HardHat size={20} color="#44543c" />
             <h3 style={{ margin: 0, fontSize: 16, fontWeight: 600 }}>General Contractor Subsurface Validation Brief</h3>
           </div>
-          <p style={{ margin: '0 0 14px', fontSize: 13, color: '#5b6872' }}>
+          <p style={{ margin: '0 0 14px', fontSize: 13, color: '#66705f' }}>
             Action items synthesized by Schema AI for the site superintendent and project engineer
           </p>
 
@@ -470,7 +470,7 @@ export function RadarStudioApp() {
             ))}
           </ol>
 
-          <div style={{ marginTop: 16, padding: '12px 14px', background: '#f5f6f4', borderRadius: 8, fontSize: 12, color: '#5b6872', lineHeight: 1.6 }}>
+          <div style={{ marginTop: 16, padding: '12px 14px', background: '#f3f4ef', borderRadius: 8, fontSize: 12, color: '#66705f', lineHeight: 1.6 }}>
             <b>Code & Inspection Provenance:</b> Conforms to ASTM D6432 Standard Guide for Using the Surface Ground Penetrating Radar Method for Subsurface Investigation and IBC Chapter 17 Special Inspections for Geotechnical and Foundation Stability.
           </div>
         </div>

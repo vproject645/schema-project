@@ -234,7 +234,7 @@ export default function SitePage() {
   const viewLabel: Record<View, string> = { twin: 'Twin', city: '3D city', satellite: 'Satellite' };
   return (
     <main style={{ maxWidth: 960, margin: '0 auto', padding: 16 }}>
-      <p style={{ margin: '0 0 12px', fontSize: 13, color: '#5b6872' }}><a href="/">← Back to Schema</a> · <a href="/app">Workspace</a> · <a href="/radar">Subsurface Radar</a> · <a href="/contractor">Contractor Hub</a> · <a href="/studio">Studio 3D</a> · <a href="/real3d">Real 3D (Google)</a></p>
+      <p style={{ margin: '0 0 12px', fontSize: 13, color: '#66705f' }}><a href="/">← Back to Schema</a> · <a href="/app">Workspace</a> · <a href="/radar">Subsurface Radar</a> · <a href="/contractor">Contractor Hub</a> · <a href="/studio">Studio 3D</a> · <a href="/real3d">Real 3D (Google)</a></p>
       <h1 style={{ fontSize: 22, margin: '0 0 12px' }}>Site view</h1>
       {!token ? (
         <section style={{ background: '#fff', padding: 16, borderRadius: 12 }}>
@@ -248,7 +248,7 @@ export default function SitePage() {
             <input style={box} value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search any address or city" />
             <button style={{ ...box, width: 110, background: '#283229', color: '#fff' }}>Go</button>
           </form>
-          <button type="button" onClick={useMyLocation} disabled={locating} style={{ ...box, marginBottom: 8, background: '#1d4f7c', color: '#fff', border: '1px solid #1d4f7c', fontWeight: 600, opacity: locating ? 0.7 : 1 }}>
+          <button type="button" onClick={useMyLocation} disabled={locating} style={{ ...box, marginBottom: 8, background: '#44543c', color: '#fff', border: '1px solid #44543c', fontWeight: 600, opacity: locating ? 0.7 : 1 }}>
             {locating ? 'Finding your location…' : 'Use my location'}
           </button>
           <div style={{ display: 'flex', gap: 8, marginBottom: 8, flexWrap: 'wrap' }}>

@@ -48,23 +48,23 @@ function PlanSheet() {
   return (
     <svg className="lp-plan" viewBox="0 0 640 410" role="img" aria-label="Concept floor plan of a 60 by 40 foot office suite with an open workspace, a meeting room and two quiet offices">
       <defs>
-        <pattern id="lp-grid" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M36 0H0V36" fill="none" stroke="#d5dad9" strokeWidth=".6" /></pattern>
+        <pattern id="lp-grid" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M36 0H0V36" fill="none" stroke="#dfe3d9" strokeWidth=".6" /></pattern>
       </defs>
       <rect width="640" height="410" fill="url(#lp-grid)" />
-      <g className="lp-dim" fill="none" stroke="#5b6872" strokeWidth="1">
+      <g className="lp-dim" fill="none" stroke="#66705f" strokeWidth="1">
         <path d="M120 50H552M120 42V58M552 42V58" />
         <path d="M84 80V368M76 80H92M76 368H92" />
       </g>
       <text x="336" y="40" textAnchor="middle" className="lp-dim-label">60′-0″</text>
       <text x="62" y="224" textAnchor="middle" className="lp-dim-label" transform="rotate(-90 62 224)">40′-0″</text>
 
-      <g className="lp-walls" fill="none" stroke="#14212b" strokeLinecap="square">
+      <g className="lp-walls" fill="none" stroke="#29342c" strokeLinecap="square">
         <path pathLength="1" strokeWidth="4" d="M120 80H552V368H120Z" />
         <path pathLength="1" strokeWidth="2.5" d="M365 80V120M365 160V368" />
         <path pathLength="1" strokeWidth="2.5" d="M365 224H382M410 224H478M506 224H552" />
         <path pathLength="1" strokeWidth="2.5" d="M458 224V368" />
       </g>
-      <g fill="none" stroke="#5b6872" strokeWidth="1">
+      <g fill="none" stroke="#66705f" strokeWidth="1">
         <path d="M365 120A40 40 0 0 1 405 160" strokeDasharray="3 3" />
         <path d="M382 224A28 28 0 0 0 410 252" strokeDasharray="3 3" />
         <path d="M478 224A28 28 0 0 0 506 252" strokeDasharray="3 3" />
@@ -82,7 +82,7 @@ function PlanSheet() {
         <text x="474" y="276">Office</text>
       </g>
       <g className="lp-gate-mark" transform="translate(365 140)">
-        <rect x="-8" y="-8" width="16" height="16" transform="rotate(45)" fill="#c8561b" />
+        <rect x="-8" y="-8" width="16" height="16" transform="rotate(45)" fill="#a8873f" />
       </g>
     </svg>
   );

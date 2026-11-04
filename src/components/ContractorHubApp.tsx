@@ -178,31 +178,31 @@ export function ContractorHubApp() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f5f6f4', color: '#14212b', fontFamily: '"IBM Plex Sans", Inter, sans-serif' }}>
+    <div style={{ minHeight: '100vh', background: '#f3f4ef', color: '#29342c', fontFamily: 'Inter, sans-serif' }}>
       {/* Header */}
-      <header style={{ borderBottom: '1px solid #d5dad9', background: '#fff', padding: '0 24px', height: 56, display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 40 }}>
+      <header style={{ borderBottom: '1px solid #dfe3d9', background: '#fff', padding: '0 24px', height: 56, display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 40 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-          <a href="/" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none', color: '#14212b', fontWeight: 600, fontSize: 18 }}>
+          <a href="/" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none', color: '#29342c', fontWeight: 600, fontSize: 18 }}>
             <SchemaMark size={24} />
             <span>Schema</span>
           </a>
-          <span style={{ height: 18, width: 1, background: '#d5dad9' }} />
-          <span style={{ fontSize: 13, color: '#5b6872', fontWeight: 500 }}>
+          <span style={{ height: 18, width: 1, background: '#dfe3d9' }} />
+          <span style={{ fontSize: 13, color: '#66705f', fontWeight: 500 }}>
             General Contractor Validation & Missing Items Hub
           </span>
         </div>
 
         <nav style={{ display: 'flex', alignItems: 'center', gap: 16, fontSize: 14 }}>
-          <a href="/app" style={{ color: '#5b6872', textDecoration: 'none', fontWeight: 500 }}>Workspace</a>
-          <a href="/radar" style={{ color: '#5b6872', textDecoration: 'none', fontWeight: 500 }}>Subsurface Radar</a>
-          <a href="/studio" style={{ color: '#5b6872', textDecoration: 'none', fontWeight: 500 }}>Studio 3D</a>
-          <a href="/site" style={{ color: '#5b6872', textDecoration: 'none', fontWeight: 500 }}>Site View</a>
-          <a href="/simulate" style={{ color: '#5b6872', textDecoration: 'none', fontWeight: 500 }}>Climate</a>
+          <a href="/app" style={{ color: '#66705f', textDecoration: 'none', fontWeight: 500 }}>Workspace</a>
+          <a href="/radar" style={{ color: '#66705f', textDecoration: 'none', fontWeight: 500 }}>Subsurface Radar</a>
+          <a href="/studio" style={{ color: '#66705f', textDecoration: 'none', fontWeight: 500 }}>Studio 3D</a>
+          <a href="/site" style={{ color: '#66705f', textDecoration: 'none', fontWeight: 500 }}>Site View</a>
+          <a href="/simulate" style={{ color: '#66705f', textDecoration: 'none', fontWeight: 500 }}>Climate</a>
           <a
             href="/app"
             style={{
               padding: '6px 14px',
-              background: '#14212b',
+              background: '#29342c',
               color: '#fff',
               borderRadius: 6,
               textDecoration: 'none',
@@ -216,15 +216,15 @@ export function ContractorHubApp() {
       </header>
 
       {/* Hero Banner */}
-      <div style={{ background: '#14212b', color: '#fff', padding: '24px 24px 28px' }}>
+      <div style={{ background: '#29342c', color: '#fff', padding: '24px 24px 28px' }}>
         <div style={{ maxWidth: 1180, margin: '0 auto' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: '#8a5a1f', padding: '3px 10px', borderRadius: 999, fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 10 }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: '#7a6039', padding: '3px 10px', borderRadius: 999, fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 10 }}>
             <HardHat size={12} /> General Contractor Validation Suite · Field & Permit Coordination
           </div>
           <h1 style={{ margin: '0 0 8px', fontSize: 28, fontWeight: 700, letterSpacing: '-0.02em' }}>
             Missing Items & Contractor Validation Hub
           </h1>
-          <p style={{ margin: 0, maxWidth: 840, fontSize: 15, color: '#a0afbb', lineHeight: 1.5 }}>
+          <p style={{ margin: 0, maxWidth: 840, fontSize: 15, color: '#a3ad98', lineHeight: 1.5 }}>
             Consolidates missing facts from briefs, unverified drawing pages, structural radar alerts, and municipal codes into an actionable field punch list. Built for direct evaluation with general contractors to guarantee constructability, resolve scope gaps, and prevent costly jobsite delays.
           </p>
         </div>
@@ -232,7 +232,7 @@ export function ContractorHubApp() {
 
       <main style={{ maxWidth: 1180, margin: '20px auto', padding: '0 16px' }}>
         {/* Contractor Meeting Sign-off & Status Banner */}
-        <div style={{ background: '#fff', border: '1px solid #d5dad9', borderRadius: 12, padding: 18, marginBottom: 20 }}>
+        <div style={{ background: '#fff', border: '1px solid #dfe3d9', borderRadius: 12, padding: 18, marginBottom: 20 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 14 }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -241,7 +241,7 @@ export function ContractorHubApp() {
                 </span>
                 <h2 style={{ margin: 0, fontSize: 18, fontWeight: 600 }}>General Contractor Field Sign-Off</h2>
               </div>
-              <p style={{ margin: '4px 0 0', fontSize: 13, color: '#5b6872' }}>
+              <p style={{ margin: '4px 0 0', fontSize: 13, color: '#66705f' }}>
                 Use this during your meeting with the general contractor to validate project assumptions, review radar findings, and record practitioner confirmation.
               </p>
             </div>
@@ -256,7 +256,7 @@ export function ContractorHubApp() {
                   padding: '8px 16px',
                   borderRadius: 6,
                   border: 0,
-                  background: contractorValidated ? '#2e7d32' : '#14212b',
+                  background: contractorValidated ? '#2e7d32' : '#29342c',
                   color: '#fff',
                   fontSize: 13,
                   fontWeight: 600,
@@ -277,7 +277,7 @@ export function ContractorHubApp() {
                   borderRadius: 6,
                   border: '1px solid #c9cfc4',
                   background: '#fff',
-                  color: '#14212b',
+                  color: '#29342c',
                   fontSize: 13,
                   fontWeight: 500,
                   cursor: 'pointer',
@@ -289,9 +289,9 @@ export function ContractorHubApp() {
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 14, marginTop: 16, paddingTop: 16, borderTop: '1px solid #eceff0' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 14, marginTop: 16, paddingTop: 16, borderTop: '1px solid #eef1e8' }}>
             <div>
-              <label style={{ fontSize: 12, fontWeight: 600, color: '#5b6872', display: 'block', marginBottom: 4 }}>
+              <label style={{ fontSize: 12, fontWeight: 600, color: '#66705f', display: 'block', marginBottom: 4 }}>
                 Practitioner / Contractor Name
               </label>
               <input
@@ -301,7 +301,7 @@ export function ContractorHubApp() {
               />
             </div>
             <div>
-              <label style={{ fontSize: 12, fontWeight: 600, color: '#5b6872', display: 'block', marginBottom: 4 }}>
+              <label style={{ fontSize: 12, fontWeight: 600, color: '#66705f', display: 'block', marginBottom: 4 }}>
                 Construction Firm
               </label>
               <input
@@ -311,7 +311,7 @@ export function ContractorHubApp() {
               />
             </div>
             <div>
-              <label style={{ fontSize: 12, fontWeight: 600, color: '#5b6872', display: 'block', marginBottom: 4 }}>
+              <label style={{ fontSize: 12, fontWeight: 600, color: '#66705f', display: 'block', marginBottom: 4 }}>
                 State Licence / CCB #
               </label>
               <input
@@ -325,60 +325,60 @@ export function ContractorHubApp() {
 
         {/* Readiness Metrics */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 14, marginBottom: 20 }}>
-          <div style={{ background: '#fff', border: '1px solid #d5dad9', borderRadius: 10, padding: 16 }}>
-            <div style={{ fontSize: 12, color: '#5b6872', fontWeight: 600, textTransform: 'uppercase' }}>
+          <div style={{ background: '#fff', border: '1px solid #dfe3d9', borderRadius: 10, padding: 16 }}>
+            <div style={{ fontSize: 12, color: '#66705f', fontWeight: 600, textTransform: 'uppercase' }}>
               Items Resolved
             </div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginTop: 4 }}>
-              <span style={{ fontSize: 32, fontWeight: 700, color: '#14212b' }}>
+              <span style={{ fontSize: 32, fontWeight: 700, color: '#29342c' }}>
                 {verifiedCount}
               </span>
-              <span style={{ fontSize: 14, color: '#5b6872' }}>/ {items.length}</span>
+              <span style={{ fontSize: 14, color: '#66705f' }}>/ {items.length}</span>
             </div>
-            <div style={{ width: '100%', height: 6, background: '#eceff0', borderRadius: 3, marginTop: 8, overflow: 'hidden' }}>
+            <div style={{ width: '100%', height: 6, background: '#eef1e8', borderRadius: 3, marginTop: 8, overflow: 'hidden' }}>
               <div style={{ width: `${progressPct}%`, height: '100%', background: '#2e7d32', transition: 'width .3s' }} />
             </div>
           </div>
 
-          <div style={{ background: '#fff', border: '1px solid #d5dad9', borderRadius: 10, padding: 16 }}>
-            <div style={{ fontSize: 12, color: '#5b6872', fontWeight: 600, textTransform: 'uppercase' }}>
+          <div style={{ background: '#fff', border: '1px solid #dfe3d9', borderRadius: 10, padding: 16 }}>
+            <div style={{ fontSize: 12, color: '#66705f', fontWeight: 600, textTransform: 'uppercase' }}>
               Permit Blockers
             </div>
             <div style={{ fontSize: 32, fontWeight: 700, color: '#ef6c00', marginTop: 4 }}>
               {items.filter((i) => i.category === 'permit_blocker' && i.status !== 'verified').length}
             </div>
-            <div style={{ fontSize: 12, color: '#5b6872', marginTop: 4 }}>
+            <div style={{ fontSize: 12, color: '#66705f', marginTop: 4 }}>
               Requires city submittal evidence
             </div>
           </div>
 
-          <div style={{ background: '#fff', border: '1px solid #d5dad9', borderRadius: 10, padding: 16 }}>
-            <div style={{ fontSize: 12, color: '#5b6872', fontWeight: 600, textTransform: 'uppercase' }}>
+          <div style={{ background: '#fff', border: '1px solid #dfe3d9', borderRadius: 10, padding: 16 }}>
+            <div style={{ fontSize: 12, color: '#66705f', fontWeight: 600, textTransform: 'uppercase' }}>
               Field Blockers
             </div>
             <div style={{ fontSize: 32, fontWeight: 700, color: '#c62828', marginTop: 4 }}>
               {items.filter((i) => i.category === 'field_blocker' && i.status !== 'verified').length}
             </div>
-            <div style={{ fontSize: 12, color: '#5b6872', marginTop: 4 }}>
+            <div style={{ fontSize: 12, color: '#66705f', marginTop: 4 }}>
               On-site conditions & radar void
             </div>
           </div>
 
-          <div style={{ background: '#fff', border: '1px solid #d5dad9', borderRadius: 10, padding: 16 }}>
-            <div style={{ fontSize: 12, color: '#5b6872', fontWeight: 600, textTransform: 'uppercase' }}>
+          <div style={{ background: '#fff', border: '1px solid #dfe3d9', borderRadius: 10, padding: 16 }}>
+            <div style={{ fontSize: 12, color: '#66705f', fontWeight: 600, textTransform: 'uppercase' }}>
               Professional Stamps
             </div>
-            <div style={{ fontSize: 32, fontWeight: 700, color: '#1d4f7c', marginTop: 4 }}>
+            <div style={{ fontSize: 32, fontWeight: 700, color: '#44543c', marginTop: 4 }}>
               {items.filter((i) => i.category === 'professional_stamp' && i.status !== 'verified').length}
             </div>
-            <div style={{ fontSize: 12, color: '#5b6872', marginTop: 4 }}>
+            <div style={{ fontSize: 12, color: '#66705f', marginTop: 4 }}>
               Architect & structural PE
             </div>
           </div>
         </div>
 
         {/* Filter Bar & Search */}
-        <div style={{ background: '#fff', border: '1px solid #d5dad9', borderRadius: 12, padding: 14, marginBottom: 16, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
+        <div style={{ background: '#fff', border: '1px solid #dfe3d9', borderRadius: 12, padding: 14, marginBottom: 16, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
             {[
               { id: 'all', label: 'All Open Items' },
@@ -392,9 +392,9 @@ export function ContractorHubApp() {
                 style={{
                   padding: '6px 12px',
                   borderRadius: 6,
-                  border: `1px solid ${activeFilter === f.id ? '#14212b' : '#c9cfc4'}`,
-                  background: activeFilter === f.id ? '#14212b' : '#fff',
-                  color: activeFilter === f.id ? '#fff' : '#14212b',
+                  border: `1px solid ${activeFilter === f.id ? '#29342c' : '#c9cfc4'}`,
+                  background: activeFilter === f.id ? '#29342c' : '#fff',
+                  color: activeFilter === f.id ? '#fff' : '#29342c',
                   fontSize: 13,
                   fontWeight: activeFilter === f.id ? 600 : 400,
                   cursor: 'pointer',
@@ -406,7 +406,7 @@ export function ContractorHubApp() {
           </div>
 
           <div style={{ position: 'relative', width: 240 }}>
-            <Search size={14} style={{ position: 'absolute', left: 10, top: 10, color: '#8a98a2' }} />
+            <Search size={14} style={{ position: 'absolute', left: 10, top: 10, color: '#8a9482' }} />
             <input
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -427,7 +427,7 @@ export function ContractorHubApp() {
                 key={item.id}
                 style={{
                   background: '#fff',
-                  border: `1px solid ${isVerified ? '#a5d6a7' : '#d5dad9'}`,
+                  border: `1px solid ${isVerified ? '#a5d6a7' : '#dfe3d9'}`,
                   borderRadius: 8,
                   padding: 16,
                   display: 'flex',
@@ -447,24 +447,24 @@ export function ContractorHubApp() {
                         fontWeight: 700,
                         textTransform: 'uppercase',
                         background:
-                          item.category === 'field_blocker' ? '#ffebee' : item.category === 'permit_blocker' ? '#fff3e0' : '#e3f2fd',
+                          item.category === 'field_blocker' ? '#ffebee' : item.category === 'permit_blocker' ? '#fff3e0' : '#e9eee1',
                         color:
-                          item.category === 'field_blocker' ? '#c62828' : item.category === 'permit_blocker' ? '#ef6c00' : '#1565c0',
+                          item.category === 'field_blocker' ? '#c62828' : item.category === 'permit_blocker' ? '#ef6c00' : '#44543c',
                       }}
                     >
                       {item.category.replace('_', ' ')}
                     </span>
-                    <strong style={{ fontSize: 15, color: isVerified ? '#5b6872' : '#14212b', textDecoration: isVerified ? 'line-through' : 'none' }}>
+                    <strong style={{ fontSize: 15, color: isVerified ? '#66705f' : '#29342c', textDecoration: isVerified ? 'line-through' : 'none' }}>
                       {item.title}
                     </strong>
-                    <span style={{ fontSize: 12, color: '#8a98a2' }}>({item.id})</span>
+                    <span style={{ fontSize: 12, color: '#8a9482' }}>({item.id})</span>
                   </div>
 
-                  <p style={{ margin: '6px 0 8px', fontSize: 13.5, color: '#334155' }}>
+                  <p style={{ margin: '6px 0 8px', fontSize: 13.5, color: '#37432f' }}>
                     {item.notes}
                   </p>
 
-                  <div style={{ display: 'flex', gap: 16, fontSize: 12, color: '#5b6872', flexWrap: 'wrap' }}>
+                  <div style={{ display: 'flex', gap: 16, fontSize: 12, color: '#66705f', flexWrap: 'wrap' }}>
                     <span>Responsible: <b>{item.responsibleParty}</b></span>
                     <span>Stage: <b>{item.stage}</b></span>
                   </div>
@@ -478,7 +478,7 @@ export function ContractorHubApp() {
                       borderRadius: 6,
                       border: `1px solid ${isVerified ? '#2e7d32' : isRfi ? '#ef6c00' : '#c9cfc4'}`,
                       background: isVerified ? '#e8f5e9' : isRfi ? '#fff3e0' : '#fff',
-                      color: isVerified ? '#2e7d32' : isRfi ? '#ef6c00' : '#14212b',
+                      color: isVerified ? '#2e7d32' : isRfi ? '#ef6c00' : '#29342c',
                       fontSize: 12,
                       fontWeight: 600,
                       cursor: 'pointer',
@@ -490,7 +490,7 @@ export function ContractorHubApp() {
                     {isVerified ? <Check size={13} /> : <AlertCircle size={13} />}
                     {isVerified ? 'Verified & Complete' : isRfi ? 'RFI Dispatched' : 'Mark In Progress'}
                   </button>
-                  <span style={{ fontSize: 11, color: '#8a98a2' }}>Click to cycle status</span>
+                  <span style={{ fontSize: 11, color: '#8a9482' }}>Click to cycle status</span>
                 </div>
               </div>
             );
@@ -498,9 +498,9 @@ export function ContractorHubApp() {
         </div>
 
         {/* Add Field Item Box */}
-        <div style={{ background: '#fff', border: '1px solid #d5dad9', borderRadius: 12, padding: 18, marginBottom: 30 }}>
+        <div style={{ background: '#fff', border: '1px solid #dfe3d9', borderRadius: 12, padding: 18, marginBottom: 30 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-            <Plus size={18} color="#1d4f7c" />
+            <Plus size={18} color="#44543c" />
             <h3 style={{ margin: 0, fontSize: 15, fontWeight: 600 }}>Add Field Observation / Contractor Item</h3>
           </div>
           <form onSubmit={addItem} style={{ display: 'grid', gridTemplateColumns: '1fr 180px 200px auto', gap: 10, marginTop: 10 }}>
@@ -533,7 +533,7 @@ export function ContractorHubApp() {
                 padding: '8px 16px',
                 borderRadius: 6,
                 border: 0,
-                background: '#14212b',
+                background: '#29342c',
                 color: '#fff',
                 fontSize: 13,
                 fontWeight: 600,
