@@ -19,6 +19,8 @@ Every stage stops at an approval gate, so nothing leaves the workspace without y
 
 [Setup and sharing](docs/SHARING.md) · [Scope](docs/SCOPE.md) · [Design](docs/DESIGN.md) · [Implementation](docs/AUTONOMOUS-IMPLEMENTATION.md) · [Verification](docs/VERIFICATION.md) · [Deployment status](docs/DEPLOYMENT-STATUS.md)
 
+For the system diagram, the full tool list and the design rules, see [Architecture](docs/ARCHITECTURE.md).
+
 ## What it does
 
 Schema runs the internal coordination queue for architects and contractors, and stops wherever a human decision is needed.
