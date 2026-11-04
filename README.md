@@ -4,6 +4,19 @@
 
 The autonomous project agent for commercial fit-outs. Start with a brief and your PDFs; Schema builds the understanding, a linked 2D/3D concept, a permit strategy and a reviewed handoff. You approve every decision that matters.
 
+**Live demo:** [schema.vproject645.workers.dev](https://schema.vproject645.workers.dev) · **License:** [MIT](LICENSE)
+
+## How it works
+
+| Step | You provide | Schema does | You decide |
+| --- | --- | --- | --- |
+| 1. Understand | A brief and project PDFs | Reads them, states assumptions, lists what is missing | Confirm or correct the assumptions |
+| 2. Design and strategy | Answers to open questions | Builds a linked 2D/3D concept and a sourced permit strategy | Approve the concept and strategy |
+| 3. Prepare | Feedback | Consolidates open questions into one request | Approve the exact message before anything is sent |
+| 4. Handoff | Final review | Runs an independent review pass and builds the package | Approve the reviewed handoff |
+
+Every stage stops at an approval gate, so nothing leaves the workspace without your explicit approval.
+
 [Setup and sharing](docs/SHARING.md) · [Scope](docs/SCOPE.md) · [Design](docs/DESIGN.md) · [Implementation](docs/AUTONOMOUS-IMPLEMENTATION.md) · [Verification](docs/VERIFICATION.md) · [Deployment status](docs/DEPLOYMENT-STATUS.md)
 
 ## What it does
