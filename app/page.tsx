@@ -4,15 +4,19 @@ import { AuthButtons } from '../src/components/AuthButtons';
 import './landing.css';
 
 const nav = [
+  { href: '/app', label: 'Workspace' },
+  { href: '/radar', label: 'Radar & Disaster AI' },
+  { href: '/contractor', label: 'Contractor Hub' },
+  { href: '/studio', label: 'Studio 3D' },
   { href: '#product', label: 'Product' },
   { href: '#how', label: 'How it works' },
-  { href: '#trust', label: 'Trust & control' },
-  { href: '/studio', label: 'Studio' },
 ];
 
 const capabilities = [
   { title: 'From brief to evidence', text: 'Upload the brief and your PDFs. Schema reads them page by page, keeps the page reference for every claim, and lists unread or scanned pages instead of guessing.' },
   { title: 'One model, two views', text: 'A single commercial concept drives the editable floor plan and the 3D cutaway. Geometry checks keep rooms inside the suite and out of each other.' },
+  { title: 'Subsurface radar & disaster AI', text: 'Low-frequency GPR (10–50 MHz) subsurface wave scanning and MEMS tilt telemetry feed an AI inversion model to detect foundation voids, ground shifts and seismic hazard.' },
+  { title: 'General contractor validation', text: 'An uncompromising field punch list and missing items tracker designed for real on-site contractor review, resolving RFIs before costly delays happen.' },
   { title: 'You make the decisions', text: 'The agent runs the internal work queue. Meaningful decisions, and anything that leaves the workspace, stop at an approval gate.' },
 ];
 
@@ -197,10 +201,15 @@ export default function LandingPage() {
         <div className="lp-wrap lp-foot">
           <a className="lp-brand" href="/"><SchemaMark size={22} /><span>Schema</span></a>
           <nav aria-label="Footer">
+            <a href="/app">Workspace</a>
+            <a href="/radar">Radar & Disaster AI</a>
+            <a href="/contractor">Contractor Hub</a>
+            <a href="/studio">Studio 3D</a>
+            <a href="/site">Site view</a>
+            <a href="/simulate">Climate</a>
+            <a href="/real3d">Real 3D</a>
             <a href="/login">Log in</a>
             <a href="/register">Register</a>
-            <a href="/studio">Studio</a>
-            <a href="/legacy">Earlier tools</a>
           </nav>
           <p>Schema supports professionals and does not issue permits or provide legal or engineering sign-off.</p>
         </div>

@@ -114,6 +114,11 @@ export function StudioApp() {
             </button>
           ))}
         </nav>
+        <div style={{ display: 'flex', gap: 12, alignItems: 'center', fontSize: 13, flex: 'none' }}>
+          <a href="/app" style={{ color: 'var(--muted)', textDecoration: 'none', fontWeight: 500 }}>Workspace</a>
+          <a href="/radar" style={{ color: 'var(--muted)', textDecoration: 'none', fontWeight: 500 }}>Subsurface Radar</a>
+          <a href="/contractor" style={{ color: 'var(--muted)', textDecoration: 'none', fontWeight: 500 }}>Contractor Hub</a>
+        </div>
       </header>
 
       <main className="st-main">

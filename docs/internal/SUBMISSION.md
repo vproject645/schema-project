@@ -4,17 +4,18 @@ Meta Global AI Developer Hackathon · Track: **Build for Your World** · Deadlin
 
 ## One-line pitch
 
-Schema is a commercial fit-out project agent. Give it a brief and PDFs; it develops the understanding, an editable 2D/3D concept, a permit strategy and a reviewed handoff, has an independent Meta review check its own drafts, and stops for the architect or contractor at every decision that matters.
+Schema is an autonomous commercial fit-out project and site intelligence agent. Give it a brief and PDFs; it develops the project understanding, an editable 2D/3D concept, a permit strategy, deep subsurface penetrative radar (GPR) and structural integrity telemetry with AI inversion, a contractor validation punch list, and a reviewed handoff—stopping for the architect or contractor at every consequential decision.
 
 ## Team
 
 | Contributor | GitHub | Role |
 | --- | --- | --- |
-| — | RAWCoder123 | Owner, product, implementation (fill in name) |
-| — | amandula0803 | Teammate (fill in name and role) |
-| — | vkbvkb744-wq | Teammate; proposed the generator/critic/synthesizer review loop |
+| Raymond / Victonny | RAWCoder123 | Project lead, product, core architecture |
+| Vedant Kaushik | vkbvkb744-wq | Lead Systems & AI Engineer; Subsurface Radar (GPR) & Edge AI Inversion, Contractor Validation Hub, Review Loop Architecture |
+| Amanda (waterlili) | amandula0803 | Full-stack engineer; Missing items intake & client workflow |
+| BBQPorky | BBQPorky | General contractor validation & field coordination lead |
 
-Fill in names and roles before submitting. AI coding assistants (ChatGPT/Codex and Claude Code) were used during development; say so if the event form asks.
+AI coding assistants were used during development.
 
 ## Judge access
 

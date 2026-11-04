@@ -115,7 +115,9 @@ export default function SimulatePage() {
   const btn: React.CSSProperties = { ...box, background: '#283229', color: '#fff', width: 'auto', padding: '10px 16px' };
   return (
     <main style={{ maxWidth: 960, margin: '0 auto', padding: 16 }}>
-      <p style={{ margin: '0 0 8px' }}><a href="/">← Back to Schema</a> · <a href={`/site?lat=${site.lat}&lng=${site.lng}`}>Map view</a></p>
+      <p style={{ margin: '0 0 12px', fontSize: 13, color: '#5b6872' }}>
+        <a href="/">← Back to Schema</a> · <a href="/app">Workspace</a> · <a href="/radar">Subsurface Radar</a> · <a href="/contractor">Contractor Hub</a> · <a href={`/site?lat=${site.lat}&lng=${site.lng}`}>Map view</a> · <a href="/real3d">Real 3D</a>
+      </p>
       <h1 style={{ fontSize: 22, margin: '0 0 8px' }}>Climate and durability estimate</h1>
       <p style={{ margin: '0 0 12px', padding: 12, background: '#f6efe3', borderRadius: 8, fontSize: 14 }}>
         <b>Early estimate only.</b> This uses one year of past weather ({WEATHER_YEAR}) and generic material factors to compare options. It is not engineering advice, a code check or professional sign-off. A licensed engineer must confirm real design decisions.

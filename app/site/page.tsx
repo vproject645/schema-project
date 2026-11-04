@@ -234,7 +234,7 @@ export default function SitePage() {
   const viewLabel: Record<View, string> = { twin: 'Twin', city: '3D city', satellite: 'Satellite' };
   return (
     <main style={{ maxWidth: 960, margin: '0 auto', padding: 16 }}>
-      <p style={{ margin: '0 0 8px' }}><a href="/">← Back to Schema</a> · <a href="/real3d">Real 3D (Google)</a></p>
+      <p style={{ margin: '0 0 12px', fontSize: 13, color: '#5b6872' }}><a href="/">← Back to Schema</a> · <a href="/app">Workspace</a> · <a href="/radar">Subsurface Radar</a> · <a href="/contractor">Contractor Hub</a> · <a href="/studio">Studio 3D</a> · <a href="/real3d">Real 3D (Google)</a></p>
       <h1 style={{ fontSize: 22, margin: '0 0 12px' }}>Site view</h1>
       {!token ? (
         <section style={{ background: '#fff', padding: 16, borderRadius: 12 }}>

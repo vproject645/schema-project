@@ -16,3 +16,4 @@ work/
 next-env.d.ts
 
 evaluations/private/
+*.zip

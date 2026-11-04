@@ -1,11 +1,7 @@
 import { readFileSync } from "node:fs";
 import { validateProject } from "../src/autonomy/domain";
 import { assessCorrections, responseRows } from "../src/autonomy/corrections";
-const input = process.argv[2];
-if (!input)
-  throw new Error(
-    "Provide an authorized project bundle or the fictional example.",
-  );
+const input = process.argv[2] ?? "examples/fictional-corrections.json";
 const bundle = JSON.parse(readFileSync(input, "utf8")),
   p = validateProject(bundle.project ?? bundle),
   report = assessCorrections(p),

@@ -105,7 +105,7 @@ export default function Real3DPage() {
   const box: React.CSSProperties = { padding: 12, border: '1px solid #c9cfc4', borderRadius: 8, fontSize: 16, width: '100%' };
   return (
     <main style={{ maxWidth: 960, margin: '0 auto', padding: 16 }}>
-      <p style={{ margin: '0 0 8px' }}><a href="/">← Back to Schema</a> · <a href="/site">Map view</a></p>
+      <p style={{ margin: '0 0 12px', fontSize: 13, color: '#5b6872' }}><a href="/">← Back to Schema</a> · <a href="/app">Workspace</a> · <a href="/radar">Subsurface Radar</a> · <a href="/contractor">Contractor Hub</a> · <a href="/studio">Studio 3D</a> · <a href="/site">Map view</a></p>
       <h1 style={{ fontSize: 22, margin: '0 0 12px' }}>Real 3D view</h1>
       {!key ? (
         <section style={{ background: '#fff', padding: 16, borderRadius: 12 }}>

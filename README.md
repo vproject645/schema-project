@@ -83,7 +83,12 @@ Build output is ignored. It includes a Vinext Worker, browser assets and append-
 
 | Route | Purpose |
 | --- | --- |
-| `/` | Public landing page with Log in and Register in the header |
+| `/` | Public landing page with Log in, Register and a showcase of the tools below |
+| `/radar` | Subsurface radar and tilt-sensor screening with a simulated AI inversion demo (not a certified geotechnical or disaster-warning system) |
+| `/contractor` | Contractor validation hub: field punch list, missing items and RFI coordination |
+| `/simulate` | Climate and durability screening with a real weather archive |
+| `/site` | Map digital twin and 3D site context, with Use my location |
+| `/real3d` | Photorealistic 3D city view (Google 3D Tiles) |
 | `/login`, `/register` | Passwordless email-link sign-in and account creation (Supabase) |
 | `/app` | The agent workspace. Requires a verified session when Supabase is configured |
 | `/studio` | Idea to 3D model, climate time-lapse, codes and permit package. See [Studio](docs/STUDIO.md) |
